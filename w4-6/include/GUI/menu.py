@@ -63,7 +63,7 @@ def read_option(account):
 		show_menu()
 		print(account)
 		opt = [input("Introduceti optiunea: ")]
-		until_valid_op(show_menu, 8, opt) ##CHANGE IT to 7
+		until_valid_op(show_menu, 8, opt)
 		if (opt[0] == '1'):
 			read_x_option(account, show_x_menu_add, 3, 1)
 		elif (opt[0] == '2'):
@@ -82,5 +82,3 @@ def read_option(account):
 			#read_x_option()
 		elif (opt[0] == '7'):
 			exit (0)
-		else:
-			print(account) ##delete it
