@@ -1,8 +1,9 @@
-from include.GUI.menu import *
-from include.interactions.tranzactions import *
+from UI.UI import *
+from interactions.tranzactions import *
 
 def main():
 	account = {"current": 0, "transactions": []}
 	read_option(account)
 
-main()
+if (__name__ == '__main__'):
+	main()

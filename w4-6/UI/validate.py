@@ -1,3 +1,15 @@
+def is_in_range(_var, start, end):
+	if (_var < start or _var > end):
+		return (0)
+	else:
+		return (1)
+
+def is_in_list(_var, _list):
+	for elem in _list:
+		if (elem == _var):
+			return (1)
+	return (0)
+
 def is_valid_option(n, to_what):
 	i = 0
 	if (len(n) == 0):
@@ -17,7 +29,7 @@ def until_valid_op(show_menu, length, n):
 		show_menu()
 		n[0] = input('Introduceti optiunea: ')
 
-def until_valid_val(length, n, _type):
+def until_valid_int(length, n, _type):
 	while (not is_valid_option(n[0], length)):
 		print(_type + ' invalida!!!')
 		n[0] = input('Reintroduceti ' + _type + ': ')
