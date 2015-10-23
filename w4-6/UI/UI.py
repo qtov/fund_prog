@@ -4,16 +4,18 @@ from interactions.tranzactions import *
 from UI.validate import *
 from UI.UI_interactions import *
 
-def _read_option(opt_count):
+def _read_option(opt_count, show_menu):
 	while True:
 		opt = input("Introduceti optiunea: ")
 		try:
 			opt = int(opt)
 			if (not is_in_range(opt, 1, opt_count)):
+				show_menu()
 				print('Optiune invalida.')
 			else:
 				break
 		except ValueError:
+			show_menu()
 			print('Optiune invalida.')
 	return (opt)
 
@@ -50,6 +52,12 @@ def show_x_menu_report():
 	print("	3. Tipareste toate tranzactiile de un anumit tip ordonat dupa suma.")
 	print("	4. Inapoi.")
 
+def show_x_menu_filter():
+	print("	1. Elimina toate tranzactiile de un tip.")
+	print("	2. Elimina toate tranzactiile mai mici de o suma data care " + \
+			"au tipul specificat.")
+	print("	3. Inapoi.")
+
 def execute_option_add(account, choice):
 	if (choice == 1):
 		add_UI_transaction(account)
@@ -80,6 +88,12 @@ def execute_option_report(account, choice):
 	elif (choice == 3):
 		report_UI_order_type_by_amount(account)
 
+def execute_option_filter(account, choice):
+	if (choice == 1):
+		filter_UI_del_type(account)
+	elif (choice == 2):
+		filter_UI_smaller_by_type(account)
+
 def execute_x_option(account, menu_number, choice):
 	if (menu_number == 1):
 		execute_option_add(account, choice)
@@ -90,20 +104,20 @@ def execute_x_option(account, menu_number, choice):
 	elif (menu_number == 4):
 		execute_option_report(account, choice)
 	elif (menu_number == 5):
-		pass
+		execute_option_filter(account, choice)
 	elif (menu_number == 6):
 		pass
 
 def read_x_option(account, show_x_menu, number_of_suboptions, menu_number):
 	show_x_menu()
-	opt = _read_option(number_of_suboptions)
+	opt = _read_option(number_of_suboptions, show_x_menu)
 	execute_x_option(account, menu_number, opt)
 
 def read_option(account):
 	while True:
 		show_menu()
 		print(account)
-		opt = _read_option(7)
+		opt = _read_option(7, show_menu)
 		"""
 		" The 3rd argument from read_x_option is the number
 		" of suboptions the option has.
@@ -117,8 +131,7 @@ def read_option(account):
 		elif (opt == 4):
 			read_x_option(account, show_x_menu_report, 4, opt)
 		elif (opt == 5):
-			pass
-			#read_x_option()
+			read_x_option(account, show_x_menu_filter, 3, opt)
 		elif (opt == 6):
 			pass
 			#read_x_option()

@@ -128,3 +128,12 @@ def report_UI_order_type_by_amount(account):
 	_type = read_type()
 	ordered_index_list = report_order_type_by_amount(account)
 	print_transactions_in_order(account, ordered_index_list, _type)
+
+def filter_UI_del_type(account):
+	_type = read_type()
+	filter_del_type(account, _type)
+
+def filter_UI_smaller_by_type(account):
+	_amount = read_amount()
+	_type = read_type()
+	filter_smaller_by_type(account, _amount, _type)

@@ -110,3 +110,13 @@ def report_order_type_by_amount(account):
 				index_list[index + 1] = aux
 				ordered = False
 	return (index_list)
+
+def filter_del_type(account, _type):
+	for transaction in getTransactions(account):
+		if (transaction['type'] != _type):
+			print_transaction(transaction)
+
+def filter_smaller_by_type(account, _amount, _type):
+	for transaction in getTransactions(account):
+		if (transaction['type'] != _type and transaction['amount'] >= _amount):
+			print_transaction(transaction)
