@@ -39,8 +39,15 @@ def show_x_menu_del():
 
 def show_x_menu_search():
 	print("	1. Tipareste tranzactiile cu sume mai mari decat o suma data.")
-	print("	2. Tipareste toate tranzactiile efectuate inainte cu o zi si mai mari decat o suma.")
+	print("	2. Tipareste toate tranzactiile efectuate inainte cu " + \
+			"o zi si mai mari decat o suma.")
 	print("	3. Tipareste tranzactiile de un anumit tip.")
+	print("	4. Inapoi.")
+
+def show_x_menu_report():
+	print("	1. Suma totala a tranzactiilor de un anumit tip.")
+	print("	2. Soldul contului la o data specificata.")
+	print("	3. Tipareste toate tranzactiile de un anumit tip ordonat dupa suma.")
 	print("	4. Inapoi.")
 
 def execute_option_add(account, choice):
@@ -71,7 +78,7 @@ def execute_option_report(account, choice):
 	elif (choice == 2):
 		report_UI_balance_date(account)
 	elif (choice == 3):
-		report_UI_order_type(account)
+		report_UI_order_type_by_amount(account)
 
 def execute_x_option(account, menu_number, choice):
 	if (menu_number == 1):
@@ -97,7 +104,10 @@ def read_option(account):
 		show_menu()
 		print(account)
 		opt = _read_option(7)
-		#3rd argument from read_x_option is the number of suboptions the option has.
+		"""
+		" The 3rd argument from read_x_option is the number
+		" of suboptions the option has.
+		"""
 		if (opt == 1):
 			read_x_option(account, show_x_menu_add, 3, opt)
 		elif (opt == 2):

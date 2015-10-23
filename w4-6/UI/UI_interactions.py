@@ -1,4 +1,5 @@
 from interactions.tranzactions import *
+from utils.utils import *
 from _globals import *
 
 def read_day_range(where):
@@ -122,3 +123,8 @@ def report_UI_type_amount(account):
 def report_UI_balance_date(account):
 	_day = read_day()
 	print(report_balance_date(account, _day))
+
+def report_UI_order_type_by_amount(account):
+	_type = read_type()
+	ordered_index_list = report_order_type_by_amount(account)
+	print_transactions_in_order(account, ordered_index_list, _type)
