@@ -12,12 +12,11 @@ def read_day_range(where):
 		try:
 			_day = int(_day)
 			if (not is_in_range(_day, 0, VALID_DAY)):
-				raise UserWarning
-			break
+				print("Ziua invalida.")	
+			else:
+				break
 		except ValueError:
 			print("Ziua invalida, introduceti un intreg.")
-		except UserWarning:
-			print("Ziua invalida.")	
 	return (_day)
 
 def read_day():
@@ -26,12 +25,11 @@ def read_day():
 		try:
 			_day = int(_day)
 			if (not is_in_range(_day, 0, VALID_DAY)):
-				raise UserWarning
-			break
+				print("Ziua invalida.")
+			else:
+				break
 		except ValueError:
 			print("Ziua invalida, introduceti un intreg.")
-		except UserWarning:
-			print("Ziua invalida.")
 	return (_day)
 
 def read_amount():
@@ -40,12 +38,11 @@ def read_amount():
 		try:
 			_amount = float(_amount)
 			if (not is_in_range(_amount, 0, VALID_AMOUNT)):
-				raise UserWarning
-			break
+				print("Suma invalida, nu se inscrie in interval.")
+			else:
+				break
 		except ValueError:
 			print("Suma invalida, introduceti un numar.")
-		except UserWarning:
-			print("Suma invalida, nu se inscrie in interval.")
 	return (_amount)
 
 def read_type():
@@ -66,21 +63,20 @@ def edit_UI_transaction(account):
 	_day = read_day()
 	_amount = read_amount()
 	_type = read_type()
-	try:
-		transaction_at = transaction_exists(_day, _amount, _type, account)
+	transaction_at = transaction_exists(_day, _amount, _type, account)
+	if (transaction_at != -1):
 		print('Actualizare tranzactie...')
 		_day = read_day()
 		_amount = read_amount()
 		_type = read_type()
 		edit_transaction(transaction_at, _day, _amount, _type, account)
-	except UserWarning:
+	else:
 		print('Tranzactie inexistenta.')
 
 def delete_UI_transaction_day(account):
 	_day = read_day()
-	try:
-		delete_transaction_day(account, _day)
-	except UserWarning:
+	deleted = delete_transaction_day(account, _day)
+	if (not deleted):
 		print('Nu s-a efectuat nici o stergere.')
 
 def delete_UI_transaction_range(account):
@@ -89,14 +85,40 @@ def delete_UI_transaction_range(account):
 	if (_day1 > _day2):
 		print('Perioada invalida.')
 	else:
-		try:
-			delete_transaction_range(account, _day1, _day2)
-		except UserWarning:
+		deleted = delete_transaction_range(account, _day1, _day2)
+		if (not deleted):
 			print('Nu s-a efectuat nici o stergere.')
 
 def delete_UI_transaction_type(account):
 	_type = read_type()
-	try:
-		delete_transaction_type(account, _type)
-	except UserWarning:
+	deleted = delete_transaction_type(account, _type)
+	if (not deleted):
 		print('Nu s-a efectuat nici o stergere.')
+
+def search_UI_transaction_bigger(account):
+	_amount = read_amount()
+	found = search_transaction_bigger(account, _amount)
+	if (not found):
+		print("Nu exista nici o tranzactie cu suma mai mare de %f." % (_amount))
+
+def search_UI_transaction_bigger_before_day(account):
+	_day = read_day()
+	_amount = read_amount()
+	found = search_transaction_bigger_before_day(account, _day, _amount)
+	if (not found):
+		print('Nu exista nici o tranzactie efectuata inainte de ziua', \
+				"%d cu suma mai mare de %f" % (_day, _amount))
+
+def search_UI_transaction_type(account):
+	_type = read_type()
+	found = search_transaction_type(account, _type)
+	if (not found):
+		print("Nu exista nici o tranzactie de tipul %s." % (_type))
+
+def report_UI_type_amount(account):
+	_type = read_type()
+	print(report_type_amount(account, _type))
+
+def report_UI_balance_date(account):
+	_day = read_day()
+	print(report_balance_date(account, _day))
