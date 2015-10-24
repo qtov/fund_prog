@@ -107,6 +107,7 @@ def execute_x_option(account, menu_number, choice):
 		execute_option_filter(account, choice)
 	elif (menu_number == 6):
 		pass
+	input('Press Enter to continue...')
 
 def read_x_option(account, show_x_menu, number_of_suboptions, menu_number):
 	show_x_menu()
