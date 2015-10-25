@@ -14,11 +14,39 @@ def transaction_exists(_day, _amount, _type, account):
 		pos += 1
 	return (-1)
 
+def test_transaction_exists():
+	account = {'transactions': [{'day': 1, 'amount': 1.0, 'type': 'intrare'}, 
+	{'day': 1, 'amount': 42.42, 'type': 'intrare'}, {'day': 2, 'amount': 2.0, 'type': 'iesire'},
+	{'day': 21, 'amount': 6.5, 'type': 'intrare'}, {'day': 8, 'amount': 52.3, 'type': 'iesire'},
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}]}
+	assert(transaction_exists(2, 2, 'iesire', account) == 2)
+	assert(transaction_exists(2, 14, 'intrare', account) == -1)
+	assert(transaction_exists(1, 42.21, 'iesire', account) == 5)
+	assert(transaction_exists(1, 1, 'iesire', account) == -1)
+	assert(transaction_exists(1, 1, 'intrare', account) == 0)
+
 def edit_transaction(transaction_at, _day, _amount, _type, account):
 	add_to_history(account)
 	getTransactions(account)[transaction_at]['day'] = _day
 	getTransactions(account)[transaction_at]['amount'] = _amount
 	getTransactions(account)[transaction_at]['type'] = _type
+
+def test_edit_transaction():
+	account = {'transactions': [{'day': 1, 'amount': 1.0, 'type': 'intrare'}, 
+	{'day': 1, 'amount': 42.42, 'type': 'intrare'}, {'day': 2, 'amount': 2.0, 'type': 'iesire'},
+	{'day': 21, 'amount': 6.5, 'type': 'intrare'}, {'day': 8, 'amount': 52.3, 'type': 'iesire'},
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}], 'history': []}
+	edit_transaction(0, 2, 2, 'intrare', account)
+	assert(account['transactions'] == [{'day': 2, 'amount': 2.0, 'type': 'intrare'}, 
+	{'day': 1, 'amount': 42.42, 'type': 'intrare'}, {'day': 2, 'amount': 2.0, 'type': 'iesire'},
+	{'day': 21, 'amount': 6.5, 'type': 'intrare'}, {'day': 8, 'amount': 52.3, 'type': 'iesire'},
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}])
+	edit_transaction(4, 6, 5.1, 'intrare', account)
+	assert(account['transactions'] == [{'day': 2, 'amount': 2.0, 'type': 'intrare'}, 
+	{'day': 1, 'amount': 42.42, 'type': 'intrare'}, {'day': 2, 'amount': 2.0, 'type': 'iesire'},
+	{'day': 21, 'amount': 6.5, 'type': 'intrare'}, {'day': 6, 'amount': 5.1, 'type': 'intrare'},
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}])
+
 
 def delete_transaction_type(account, _type):
 	deleted = False
@@ -130,5 +158,9 @@ def filter_smaller_by_type(account, _amount, _type):
 			print_transaction(transaction)
 
 def undo(account):
-	account['transactions'] = getHistory(account)[len(getHistory(account)) - 1]
-	getHistory(account).pop()
+	if (len(getHistory(account)) > 0):
+		account['transactions'] = getHistory(account)[len(getHistory(account)) - 1]
+		getHistory(account).pop()
+		return ('Undo successful...')
+	else:
+		return ('There is nothing to undo.')

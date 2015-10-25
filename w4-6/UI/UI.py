@@ -17,6 +17,8 @@ def _read_option(opt_count, show_menu):
 		except ValueError:
 			show_menu()
 			print('Optiune invalida.')
+	if (opt == opt_count):
+		return (-1)
 	return (opt)
 
 def show_menu():
@@ -105,9 +107,8 @@ def execute_x_option(account, menu_number, choice):
 		execute_option_report(account, choice)
 	elif (menu_number == 5):
 		execute_option_filter(account, choice)
-	elif (menu_number == 6):
-		pass
-	input('Press Enter to continue...') #Dunno about it... is it good?!
+	if (choice != -1):
+		input('Press Enter to continue...') #Dunno about it... is it good?!
 
 def read_x_option(account, show_x_menu, number_of_suboptions, menu_number):
 	show_x_menu()
@@ -115,9 +116,10 @@ def read_x_option(account, show_x_menu, number_of_suboptions, menu_number):
 	execute_x_option(account, menu_number, opt)
 
 def read_option(account):
-	while True:
+	opt = 0
+	while (opt != 7):
 		show_menu()
-		#print(account) #The state of the account... Groar!!
+		print(account) #The state of the account... Groar!!
 		opt = _read_option(7, show_menu)
 		"""
 		" The 3rd argument from read_x_option is the number
@@ -134,6 +136,4 @@ def read_option(account):
 		elif (opt == 5):
 			read_x_option(account, show_x_menu_filter, 3, opt)
 		elif (opt == 6):
-			undo(account)
-		elif (opt == 7):
-			exit (0)
+			print(undo(account))
