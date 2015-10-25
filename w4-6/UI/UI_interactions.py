@@ -1,6 +1,6 @@
-from interactions.tranzactions import *
-from utils.utils import *
 from _globals import *
+from utils.utils import *
+from interactions.transactions import *
 
 def read_day_range(where):
 	while True:
@@ -98,21 +98,21 @@ def delete_UI_transaction_type(account):
 
 def search_UI_transaction_bigger(account):
 	_amount = read_amount()
-	found = search_transaction_bigger(account, _amount)
+	found = search_transaction_bigger(account, _amount, print_transaction)
 	if (not found):
 		print("Nu exista nici o tranzactie cu suma mai mare de %f." % (_amount))
 
 def search_UI_transaction_bigger_before_day(account):
 	_day = read_day()
 	_amount = read_amount()
-	found = search_transaction_bigger_before_day(account, _day, _amount)
+	found = search_transaction_bigger_before_day(account, _day, _amount, print_transaction)
 	if (not found):
 		print('Nu exista nici o tranzactie efectuata inainte de ziua', \
 				"%d cu suma mai mare de %f" % (_day, _amount))
 
 def search_UI_transaction_type(account):
 	_type = read_type()
-	found = search_transaction_type(account, _type)
+	found = search_transaction_type(account, _type, print_transaction)
 	if (not found):
 		print("Nu exista nici o tranzactie de tipul %s." % (_type))
 
@@ -131,9 +131,9 @@ def report_UI_order_type_by_amount(account):
 
 def filter_UI_del_type(account):
 	_type = read_type()
-	filter_del_type(account, _type)
+	filter_del_type(account, _type, print_transaction)
 
 def filter_UI_smaller_by_type(account):
 	_amount = read_amount()
 	_type = read_type()
-	filter_smaller_by_type(account, _amount, _type)
+	filter_smaller_by_type(account, _amount, _type, print_transaction)

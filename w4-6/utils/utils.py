@@ -1,3 +1,12 @@
+from _globals import *
+
+def _pass(x):
+	pass
+
+def add_to_test_array(transaction):
+	global TEST_ARRAY
+	TEST_ARRAY.append(transaction)
+
 def getTransactions(account):
 	return (account['transactions'])
 

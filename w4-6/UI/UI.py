@@ -1,8 +1,8 @@
 #Problema 4: Cont bancar.
 
-from interactions.tranzactions import *
 from UI.validate import *
 from UI.UI_interactions import *
+from interactions.transactions import *
 
 def _read_option(opt_count, show_menu):
 	while True:
@@ -117,7 +117,7 @@ def read_x_option(account, show_x_menu, number_of_suboptions, menu_number):
 
 def read_option(account):
 	opt = 0
-	while (opt != 7):
+	while (opt != -1):
 		show_menu()
 		print(account) #The state of the account... Groar!!
 		opt = _read_option(7, show_menu)
