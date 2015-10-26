@@ -133,7 +133,20 @@ def filter_UI_del_type(account):
 	_type = read_type()
 	filter_del_type(account, _type, print_transaction)
 
+def filter_UI_del_type_rm(account):
+	_type = read_type()
+	filtered = delete_transaction_type(account, _type)
+	if (not filtered):
+		print('Nu s-a efectuat nici o filtrare.')
+
 def filter_UI_smaller_by_type(account):
 	_amount = read_amount()
 	_type = read_type()
 	filter_smaller_by_type(account, _amount, _type, print_transaction)
+
+def filter_UI_smaller_by_type_rm(account):
+	_amount = read_amount()
+	_type = read_type()
+	filtered = filter_smaller_by_type_rm(account, _amount, _type)
+	if (not filtered):
+		print('Nu s-a efectual nici o filtrare.')

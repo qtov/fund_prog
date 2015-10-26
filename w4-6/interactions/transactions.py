@@ -125,10 +125,38 @@ def filter_del_type(account, _type, execute):
 		if (getType(transaction) != _type):
 			execute(transaction)
 
+def filter_del_type_rm(account, _type):
+	#The same as delete_transaction_type
+	was_deleted = True
+	deleted = False
+	while (was_deleted):
+		was_deleted = False
+		for transaction in getTransactions(account):
+			if (getType(transaction) == _type):
+				if (not deleted):
+					add_to_history(account)
+				deleted = True
+				was_deleted = True
+	return (deleted)
+
 def filter_smaller_by_type(account, _amount, _type, execute):
 	for transaction in getTransactions(account):
 		if (getType(transaction) != _type and getAmount(transaction) >= _amount):
 			execute(transaction)
+
+def filter_smaller_by_type_rm(account, _amount, _type):
+	was_deleted = True
+	deleted = False
+	while (was_deleted):
+		was_deleted = False
+		for transaction in getTransactions(account):
+			if (getType(transaction) == _type and getAmount(transaction) < _amount):
+				if (not deleted):
+					add_to_history(account)
+				getTransactions(account).remove(transaction)
+				was_deleted = True
+				deleted = True
+	return (deleted)
 
 def undo(account):
 	if (len(getHistory(account)) > 0):

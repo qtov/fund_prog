@@ -92,9 +92,11 @@ def execute_option_report(account, choice):
 
 def execute_option_filter(account, choice):
 	if (choice == 1):
-		filter_UI_del_type(account)
+		#filter_UI_del_type(account) #for display or any other function
+		filter_UI_del_type_rm(account) #for deleting
 	elif (choice == 2):
-		filter_UI_smaller_by_type(account)
+		#filter_UI_smaller_by_type(account) #for display or any other function
+		filter_UI_smaller_by_type_rm(account) #for deleting
 
 def execute_x_option(account, menu_number, choice):
 	if (menu_number == 1):
