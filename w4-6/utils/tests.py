@@ -134,6 +134,18 @@ def test_filter_del_type():
 	{'day': 1, 'amount': 42.42, 'type': 'intrare'},
 	{'day': 21, 'amount': 6.5, 'type': 'intrare'}])
 
+def test_filter_del_type_rm():
+	account = {'transactions': [{'day': 1, 'amount': 1.0, 'type': 'intrare'}, 
+	{'day': 1, 'amount': 42.42, 'type': 'intrare'}, {'day': 2, 'amount': 2.0, 'type': 'iesire'},
+	{'day': 21, 'amount': 6.5, 'type': 'intrare'}, {'day': 8, 'amount': 52.3, 'type': 'iesire'},
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}], 'history': []}
+	filter_del_type_rm(account, 'intrare')
+	assert(account['transactions'] == [{'day': 2, 'amount': 2.0, 'type': 'iesire'}, 
+	{'day': 8, 'amount': 52.3, 'type': 'iesire'}, 
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}])
+	filter_del_type_rm(account, 'iesire')
+	assert(account['transactions'] == [])
+
 def test_filter_smaller_by_type():
 	global TEST_ARRAY
 	del TEST_ARRAY[:]
@@ -146,6 +158,20 @@ def test_filter_smaller_by_type():
 	del TEST_ARRAY[:]
 	filter_smaller_by_type(account, 42.22, 'iesire', add_to_test_array)
 	assert(TEST_ARRAY == [{'day': 1, 'amount': 42.42, 'type': 'intrare'}])
+
+def test_filter_smaller_by_type_rm():
+	account = {'transactions': [{'day': 1, 'amount': 1.0, 'type': 'intrare'}, 
+	{'day': 1, 'amount': 42.42, 'type': 'intrare'}, {'day': 2, 'amount': 2.0, 'type': 'iesire'},
+	{'day': 21, 'amount': 6.5, 'type': 'intrare'}, {'day': 8, 'amount': 52.3, 'type': 'iesire'},
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}], 'history': []}
+	filter_smaller_by_type_rm(account, 42, 'intrare')
+	assert(account['transactions'] == [{'day': 1, 'amount': 42.42, 'type': 'intrare'}, 
+	{'day': 2, 'amount': 2.0, 'type': 'iesire'}, 
+	{'day': 8, 'amount': 52.3, 'type': 'iesire'}, 
+	{'day': 1, 'amount': 42.21, 'type': 'iesire'}])
+	filter_smaller_by_type_rm(account, 52.3, 'iesire')
+	assert(account['transactions'] == [{'day': 1, 'amount': 42.42, 'type': 'intrare'},
+	{'day': 8, 'amount': 52.3, 'type': 'iesire'}])
 	
 def test_undo():
 	account = {'transactions': [{'testing': 1}, {'is': 0}, {'divine': 10}],

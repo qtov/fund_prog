@@ -135,6 +135,7 @@ def filter_del_type_rm(account, _type):
 			if (getType(transaction) == _type):
 				if (not deleted):
 					add_to_history(account)
+				getTransactions(account).remove(transaction)
 				deleted = True
 				was_deleted = True
 	return (deleted)

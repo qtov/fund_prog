@@ -71,6 +71,7 @@ def edit_UI_transaction(account):
 		_amount = read_amount()
 		_type = read_type()
 		edit_transaction(transaction_at, _day, _amount, _type, account)
+		print('Tranzactie actualizata.')
 	else:
 		print('Tranzactie inexistenta.')
 
@@ -79,6 +80,8 @@ def delete_UI_transaction_day(account):
 	deleted = delete_transaction_day(account, _day)
 	if (not deleted):
 		print('Nu s-a efectuat nici o stergere.')
+	else:
+		print('Stergere finalizata.')
 
 def delete_UI_transaction_range(account):
 	_day1 = read_day_range('start')
@@ -89,12 +92,16 @@ def delete_UI_transaction_range(account):
 		deleted = delete_transaction_range(account, _day1, _day2)
 		if (not deleted):
 			print('Nu s-a efectuat nici o stergere.')
+		else:
+			print('Stergere finalizata.')
 
 def delete_UI_transaction_type(account):
 	_type = read_type()
 	deleted = delete_transaction_type(account, _type)
 	if (not deleted):
 		print('Nu s-a efectuat nici o stergere.')
+	else:
+		print('Stergere finalizata.')
 
 def search_UI_transaction_bigger(account):
 	_amount = read_amount()
@@ -138,6 +145,8 @@ def filter_UI_del_type_rm(account):
 	filtered = delete_transaction_type(account, _type)
 	if (not filtered):
 		print('Nu s-a efectuat nici o filtrare.')
+	else:
+		print('Filtrare finalizata.')
 
 def filter_UI_smaller_by_type(account):
 	_amount = read_amount()
@@ -150,3 +159,5 @@ def filter_UI_smaller_by_type_rm(account):
 	filtered = filter_smaller_by_type_rm(account, _amount, _type)
 	if (not filtered):
 		print('Nu s-a efectual nici o filtrare.')
+	else:
+		print('Filtrare finalizata.')

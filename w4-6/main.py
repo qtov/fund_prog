@@ -16,6 +16,8 @@ def test_all():
 	test_report_order_type_by_amount()
 	test_filter_del_type()
 	test_filter_smaller_by_type()
+	test_filter_del_type_rm()
+	test_filter_smaller_by_type_rm()
 	test_undo()
 
 def main():

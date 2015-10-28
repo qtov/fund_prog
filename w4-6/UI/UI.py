@@ -110,7 +110,8 @@ def execute_x_option(account, menu_number, choice):
 	elif (menu_number == 5):
 		execute_option_filter(account, choice)
 	if (choice != -1):
-		input('Press Enter to continue...') #Dunno about it... is it good?!
+		#input('Press Enter to continue...') #Dunno about it... is it good?!
+		input('Apasati Enter pentru a continua...')
 
 def read_x_option(account, show_x_menu, number_of_suboptions, menu_number):
 	show_x_menu()
