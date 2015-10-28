@@ -5,6 +5,9 @@ from UI.UI_interactions import *
 from interactions.transactions import *
 
 def _read_option(opt_count, show_menu):
+	"""
+	Citeste optiunea.
+	"""	
 	while True:
 		opt = input("Introduceti optiunea: ")
 		try:
@@ -61,12 +64,18 @@ def show_x_menu_filter():
 	print("	3. Inapoi.")
 
 def execute_option_add(account, choice):
+	"""
+	Executa optiunea pentru optiunea 1 din meniu.
+	"""
 	if (choice == 1):
 		add_UI_transaction(account)
 	elif (choice == 2):
 		edit_UI_transaction(account)
 
 def execute_option_del(account, choice):
+	"""
+	Executa optiunea pentru optiunea 2 din meniu.
+	"""
 	if (choice == 1):
 		delete_UI_transaction_day(account)
 	elif (choice == 2):
@@ -75,6 +84,9 @@ def execute_option_del(account, choice):
 		delete_UI_transaction_type(account)
 
 def execute_option_find(account, choice):
+	"""
+	Executa optiunea pentru optiunea 3 din meniu.
+	"""
 	if (choice == 1):
 		search_UI_transaction_bigger(account)
 	elif (choice == 2):
@@ -83,6 +95,9 @@ def execute_option_find(account, choice):
 		search_UI_transaction_type(account)
 
 def execute_option_report(account, choice):
+	"""
+	Executa optiunea pentru optiunea 4 din meniu.
+	"""
 	if (choice == 1):
 		report_UI_type_amount(account)
 	elif (choice == 2):
@@ -91,6 +106,9 @@ def execute_option_report(account, choice):
 		report_UI_order_type_by_amount(account)
 
 def execute_option_filter(account, choice):
+	"""
+	Executa optiunea pentru optiunea 5 din meniu.
+	"""
 	if (choice == 1):
 		#filter_UI_del_type(account) #for display or any other function
 		filter_UI_del_type_rm(account) #for deleting
@@ -99,6 +117,9 @@ def execute_option_filter(account, choice):
 		filter_UI_smaller_by_type_rm(account) #for deleting
 
 def execute_x_option(account, menu_number, choice):
+	"""
+	Executa optiunea meniului extended.
+	"""
 	if (menu_number == 1):
 		execute_option_add(account, choice)
 	elif (menu_number == 2):
@@ -114,11 +135,17 @@ def execute_x_option(account, menu_number, choice):
 		input('Apasati Enter pentru a continua...')
 
 def read_x_option(account, show_x_menu, number_of_suboptions, menu_number):
+	"""
+	Citeste optiunea pentru submeniu.
+	"""
 	show_x_menu()
 	opt = _read_option(number_of_suboptions, show_x_menu)
 	execute_x_option(account, menu_number, opt)
 
 def read_option(account):
+	"""
+	Citeste optiunea pentru meniu.
+	"""
 	opt = 0
 	while (opt != -1):
 		show_menu()

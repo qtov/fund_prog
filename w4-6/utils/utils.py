@@ -23,6 +23,10 @@ def getHistory(account):
 	return (account['history'])
 
 def create_list_index(length):
+	"""
+	Creeaza o lista de pozitii in ordine crescatoare.
+	De ex: Daca argumentul este 5 se creeaza lista [0, 1, 2, 3, 4]
+	"""
 	index_list = []
 	i = 0
 	while (i < length):
@@ -31,6 +35,9 @@ def create_list_index(length):
 	return (index_list)
 
 def add_to_history(account):
+	"""
+	Adauga in istoric tranzactia existenta inainte de a fi editata.
+	"""
 	getHistory(account).append([trans.copy() for trans in getTransactions(account)])
 
 def print_transaction(transaction):
