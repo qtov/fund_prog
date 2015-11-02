@@ -31,7 +31,8 @@ def show_menu():
 	print("4. Rapoarte.")
 	print("5. Filtrare.")
 	print("6. Undo.")
-	print("7. Iesire.")
+	print("7. Afisare lista tranzactii.")
+	print("8. Iesire.")
 
 def show_x_menu_add():
 	print("	1. Adauga tranzactie.")
@@ -149,8 +150,9 @@ def read_option(account):
 	opt = 0
 	while (opt != -1):
 		show_menu()
-		print(account) #The state of the account... Groar!!
-		opt = _read_option(7, show_menu)
+		#print(account) #The state of the account... Groar!! Ugly version.
+		#print_account_transactions(account)
+		opt = _read_option(8, show_menu)
 		"""
 		" The 3rd argument from read_x_option is the number
 		" of suboptions the option has.
@@ -167,3 +169,5 @@ def read_option(account):
 			read_x_option(account, show_x_menu_filter, 3, opt)
 		elif (opt == 6):
 			print(undo(account))
+		elif (opt == 7):
+			print_account_transactions(account)

@@ -45,6 +45,10 @@ def print_transaction(transaction):
 	print('Suma = ' + str(getAmount(transaction)) + '; ', end = '')
 	print('Tipul = ' + str(getType(transaction)) + '.')
 
+def print_account_transactions(account):
+	for transaction in getTransactions(account):
+		print_transaction(transaction)
+
 def print_transactions_in_order(account, ordered_list, _type):
 	for i in ordered_list:
 		print_transaction(getTransactions(account)[i])
