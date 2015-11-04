@@ -141,12 +141,13 @@ def search_UI_transaction_type(account):
 def report_UI_type_amount(account):
 	"""Citeste tipul tranzactiei pentru care se calculeaza suma."""
 	_type = read_type()
-	print(report_type_amount(account, _type))
+	print("Suma tranzactiilor de tipul %s este: " % (report_type_amount(account, _type)))
 
 def report_UI_balance_date(account):
 	"""Citeste ziua tranzactiei pentru care se calculeaza suma."""
 	_day = read_day()
-	print(report_balance_date(account, _day))
+	print("Soldul contului in ziua %d este: %.2f" % (_day, 
+	report_balance_date(account, _day)))
 
 def report_UI_order_type_by_amount(account):
 	"""Citeste tipul tranzactiilor care se ordoneaza dupa suma."""

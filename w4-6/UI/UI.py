@@ -117,7 +117,13 @@ def execute_option_filter(account, choice):
 		#filter_UI_smaller_by_type(account) #for display or any other function
 		filter_UI_smaller_by_type_rm(account) #for deleting
 
-def execute_x_option(account, menu_number, choice):
+def execute_option_show(account):
+	print_account_transactions(account)
+
+def execute_option_undo(account):
+	print(undo(account))
+
+def execute_x_option(account, menu_number, choice = 0):
 	"""
 	Executa optiunea meniului extended.
 	"""
@@ -131,6 +137,10 @@ def execute_x_option(account, menu_number, choice):
 		execute_option_report(account, choice)
 	elif (menu_number == 5):
 		execute_option_filter(account, choice)
+	elif (menu_number == 6):
+		execute_option_undo(account)
+	elif (menu_number == 7):
+		execute_option_show(account)
 	if (choice != -1):
 		#input('Press Enter to continue...') #Dunno about it... is it good?!
 		input('Apasati Enter pentru a continua...')
@@ -168,6 +178,7 @@ def read_option(account):
 		elif (opt == 5):
 			read_x_option(account, show_x_menu_filter, 3, opt)
 		elif (opt == 6):
-			print(undo(account))
+			execute_x_option(account, 6)
 		elif (opt == 7):
-			print_account_transactions(account)
+			execute_x_option(account, 7)
+			
