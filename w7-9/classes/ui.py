@@ -60,8 +60,8 @@ class UI(object):
 			self.show_menu()
 			option = input('Introduceti optiunea: ')
 			try:
-				if (int(option) <= 6):
-					self.__controller.take_option(option)
+				self.__controller.take_option(option)			
+				if (int(option) <= 4):
 					self._read_categ()
 			except ValueError as err:
 				print(err.args[0])
