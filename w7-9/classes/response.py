@@ -1,7 +1,7 @@
 class Response(object):
 	"""docstring for Response"""
 	def __init__(self):
-		self.is_successful = True
+		self.__success = True
 		self.resp_msg = []
 
 	def add(self, type_, message):
@@ -9,4 +9,14 @@ class Response(object):
 			self.is_successful = False
 		self.resp_msg.append(message)
 
-	
+	def display(self):
+		for msg in self.resp_msg:
+			print(msg)
+
+	def is_successful(self):
+		return self.__success
+
+	def clear(self):
+		del self.resp_msg
+		self.resp_msg = [] 
+
