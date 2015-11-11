@@ -1,8 +1,12 @@
 from classes.creator import Creator
 from classes.ui import UI
+from classes.validator import Validator
 
 def test_all():
-	pass
+	Validator.testValidateOption()
+	Validator.testValidateTitle()
+	Validator.testValidateCNP()
+	Validator.testValidateName()
 
 def main():
 	creator = Creator()
