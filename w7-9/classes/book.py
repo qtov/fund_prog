@@ -8,10 +8,11 @@ class Book(object):
 		
 	def __str__(self):
 		str_ = '';
-		str_ += 'Id: ' + str(self.__uid) + "; "
-		str_ += 'Titlu: ' + str(self._title) + "; "
-		str_ += 'Descriere: ' + str(self._description) + "; "
-		str_ += 'Autor: ' + str(self._author) + ".\n"
+		str_ += 'Id: ' + str(self.__uid) + "\n"
+		str_ += 'Titlu: "' + str(self._title) + "\"\n"
+		str_ += 'Descriere: "' + str(self._description) + "\"\n"
+		str_ += 'Autor: "' + str(self._author) + "\"\n"
+		str_ += "-------=======-------\n"
 		return str_
 
 	def getUid(self):

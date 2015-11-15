@@ -22,8 +22,12 @@ class Controller(object):
 		self.__set_option(int(option))
 
 	def take_suboption(self, suboption):
-		Validator.validateOption(suboption, 1, 2)
+		Validator.validateOption(suboption, 1, 3)
 		self.__set_suboption(int(suboption))
+
+	def take_x_option_book(self, x_option):
+		Validator.validateOption(x_option, 1, 3)
+		self.__set_x_option(int(x_option))
 
 class BookController(object):
 	"""docstring for Controller"""
@@ -36,21 +40,22 @@ class BookController(object):
 	def setSuboption(self, suboption):
 		self.__suboption = suboption
 		
-	def take(self, title, description, author):
+	def add(self, title, description, author):
 		Validator.validateTitle(title)
 		book = Book(getMaxUid('book') + 1, title, description, author)
-		if (self.__option == 1):
-			self.__repository.add(book)
-		elif (self.__option == 2):
-			pass
-		elif (self.__option == 3):
-			pass
-		elif (self.__option == 4):
-			pass
-		elif (self.__option == 5):
-			pass
-		elif (self.__option == 7):
-			pass
+		self.__repository.add(book)
+
+	def delete_id(self, uid):
+		self.__repository.delete_id(uid)
+
+	def delete_title(self, title):
+		self.__repository.delete_title(title)
+
+	def delete_author(self, author):
+		self.__repository.delete_author(author)
+
+	def display(self):
+		self.__repository.show()
 
 class ClientController(object):
 	"""docstring for Controller"""
@@ -67,18 +72,10 @@ class ClientController(object):
 		Validator.validateName(name)
 		Validator.validateCNP(cnp)
 
-	def take(self, name, cnp):
+	def add(self, name, cnp):
 		self.validateData(name, cnp)
 		client = Client(getMaxUid('client') + 1, name, cnp)
-		if (self.__option == 1):
-			self.__repository.add(client)
-		elif (self.__option == 2):
-			pass
-		elif (self.__option == 3):
-			pass
-		elif (self.__option == 4):
-			pass
-		elif (self.__option == 5):
-			pass
-		elif (self.__option == 7):
-			pass
+		self.__repository.add(client)
+
+	def display(self):
+		self.__repository.show()
