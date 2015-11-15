@@ -1,42 +1,29 @@
 from classes.book import Book
 from classes.client import Client
+from functions.utils import getMaxUid
 
-class Repository(object):
-	"""docstring for Repository"""
+class BookRepository(object):
+	"""Repository"""
 	def __init__(self):
-		self.__book_list = []
-		self.__client_list = []
+		self.__list = []
 		
-	def getBookList(self):
-		return self.__book_list
+	def getList(self):
+		return self.__list
 
-	def getClientList(self):
-		return self.__client_list
+	def add(self, book):
+		repository = open("repositories/book_repository", "a")
+		repository.write(str(book))
+		repository.close()
 
-	def getMaxUid(self, type_):
-		max_uid = 0
-		if (type_ == 'book'):
-			for book in self.__book_list:
-				if (book.getUid() > max_uid):
-					max_uid = book.getUid()
-		elif (type_ == 'client'):
-			for client in self.__client_list:
-				if (client.getUid() > max_uid):
-					max_uid = client.getUid()
-		else:
-			raise NameError
-		return max_uid
+class ClientRepository(object):
+	"""Client repository."""
+	def __init__(self):
+		self.__list = []
 
-	def addBook(self, title, description):
-		book = Book(self.getMaxUid('book') + 1, title, description)
-		self.__book_list.append(book)
-		for book in self.__book_list:
-			print(book)
+	def getList(self):
+		return self.__list
 
-	def addClient(self, name, cnp):
-		client = Client(self.getMaxUid('client') + 1, name, cnp)
-		self.__client_list.append(client)
-		for client in self.__client_list:
-			print(client)
-
-
+	def add(self, client):
+		repository = open("repositories/client_repository", "a")
+		repository.write(str(client))
+		repository.close()

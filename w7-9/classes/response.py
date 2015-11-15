@@ -1,5 +1,5 @@
 class Response(object):
-	"""docstring for Response"""
+	"""Clasa care se ocupa de raspunsuri."""
 	def __init__(self):
 		self.__success = True
 		self.resp_msg = []

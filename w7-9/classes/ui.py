@@ -23,22 +23,26 @@ class UI(object):
 		print('3. Inapoi.')
 
 	def _read_book(self):
+		"""Citeste datele unei carti."""
 		title = input('Introduceti titlul: ')
 		description = input('Introduceti descrierea: ')
+		author = input('Introduceti autorul: ')
 		try:
-			self.__controller.take_book(title, description)
+			self.__controller.book.take(title, description, author)
 		except ValueError as err:
 			print(err.args[0])
 
 	def _read_client(self):
+		"""Citeste datele unui client."""
 		name = input('Introduceti numele: ')
 		cnp = input('Introduceti CNP-ul: ')
 		try:
-			self.__controller.take_client(name, cnp)
+			self.__controller.client.take(name, cnp)
 		except ValueError as err:
 			print(err.args[0])
 
 	def _read_categ(self):
+		"""Citeste categoria optiunii."""
 		suboption = None
 		while (suboption != self.__exit_suboption):
 			self.show_ext_menu()
@@ -55,6 +59,7 @@ class UI(object):
 				print(err.args[0])
 
 	def read_option(self):
+		"""Citeste optiunea."""
 		option = None
 		while (option != self.__exit_option):
 			self.show_menu()

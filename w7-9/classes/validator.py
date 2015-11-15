@@ -1,8 +1,6 @@
 import re
 
 class Validator(object):
-	"""docstring for Validator"""
-
 	@staticmethod
 	def validateOption(opt, min_, max_):
 		try:
@@ -26,7 +24,6 @@ class Validator(object):
 		Validator.validateOption(7, 6, 11)
 		Validator.validateOption(3, 3, 4)
 
-
 	@staticmethod
 	def validateTitle(title):
 		if (len(title) == 0):
@@ -42,7 +39,6 @@ class Validator(object):
 			pass
 		Validator.validateTitle('re')
 		Validator.validateTitle('as')
-
 
 	@staticmethod
 	def validateCNP(cnp):
@@ -72,7 +68,6 @@ class Validator(object):
 			assert(0 == 1)
 		except ValueError:
 			pass
-
 
 	@staticmethod
 	def validateName(name):

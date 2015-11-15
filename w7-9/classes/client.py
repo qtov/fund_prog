@@ -7,9 +7,9 @@ class Client(object):
 	
 	def __str__(self):
 		str_ = '';
-		str_ += 'Id: ' + str(self.__uid) + "\n"
-		str_ += 'Nume: ' + str(self._name) + "\n"
-		str_ += 'CNP: ' + str(self.__CNP) + "\n"
+		str_ += 'Id: ' + str(self.__uid) + "; "
+		str_ += 'Nume: ' + str(self._name) + "; "
+		str_ += 'CNP: ' + str(self.__CNP) + ".\n"
 		return str_
 
 	def getUid(self):
