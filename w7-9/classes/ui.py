@@ -9,6 +9,7 @@ class UI(object):
 		self.__book_controller = book_controller
 
 	def show_menu(self):
+		"""Afiseaza meniul."""
 		print(end="\n")
 		print('1. Adaugare.')
 		print('2. Sterge.')
@@ -20,6 +21,7 @@ class UI(object):
 		print('8. Iesire.')
 
 	def show_categ_menu(self):
+		"""Afiseaza categoriile."""
 		print('1. Carte.')
 		print('2. Client.')
 		print('3. Inapoi.')
@@ -35,26 +37,37 @@ class UI(object):
 			print(err.args[0])
 
 	def _read_book_id(self):
+		"""Citeste id-ul pentru carte."""
 		uid = input('Id: ')
 		return uid
 
 	def _read_book_title(self):
+		"""Citeste titlul pentru carte."""
 		title = input('Titlu: ')
 		return title
 
+	def _read_book_description(self):
+		"""Citeste descrierea pentru carte."""
+		description = input('Descrierea: ')
+		return description
+
 	def _read_book_author(self):
+		"""Citeste autorul pentru carte."""
 		author = input ('Author: ')
 		return author
 
 	def _read_client_id(self):
+		"""Citeste id-ul pentru client."""
 		uid = input('Id: ')
 		return uid
 
 	def _read_client_name(self):
+		"""Citeste numele pentru client."""
 		name = input('Nume: ')
 		return name
 
 	def _read_client_cnp(self):
+		"""Citeste cnp-ul pentru client."""
 		cnp = input ('CNP: ')
 		return cnp
 
@@ -69,20 +82,23 @@ class UI(object):
 			print(err.args[0])
 
 	def show_x_menu_book(self):
+		"""Afiseaza categoriile pentru lucrul cu obiectul carte."""
 		print('1. Id.')
 		print('2. Titlu.')
 		print('3. Autor.')
 		print('4. Inapoi.')
 
 	def show_x_menu_client(self):
+		"""Afiseaza categoriile pentru lucrul cu obiectul client."""
 		print('1. Id.')
 		print('2. Nume.')
 		print('3. CNP.')
 		print('4. Inapoi.')
 
-	def _read_x_categ_book(self, for_what):
+	def read_categ_book_delete(self):
+		"""Citeste categoriile pentru stergerea unei carti"""
 		self.show_x_menu_book()
-		x_type = input('Introduceti tipul pentru ' + for_what + ': ')
+		x_type = input('Introduceti tipul pentru stergere: ')
 		try:
 			x_type = int(x_type)
 			if (x_type == 1):
@@ -97,9 +113,29 @@ class UI(object):
 		except ValueError:
 			print('Optiune invalida.')
 
-	def _read_x_categ_client(self, for_what):
+	def read_categ_book_edit(self):
+		"""Citeste categoriile pentru modificarea unei carti"""
+		try:
+			uid = self._read_book_id()
+			pos = self.__book_controller.check_uid(uid)
+			if (pos != -1):
+				print('Actualizare...')
+				title = self._read_book_title()
+				description = self._read_book_description()
+				author = self._read_book_author()
+				try:
+					self.__book_controller.edit_uid(pos, title, description, author)
+				except ValueError as err:
+					print(err.args[0])
+			else:
+				print('Cartea nu exista.')
+		except ValueError:
+			print('Id invalid.')
+
+	def read_categ_client_delete(self):
+		"""Citeste categoriile pentru stergerea unui client"""
 		self.show_x_menu_client()
-		x_type = input('Introduceti tipul pentru ' + for_what + ': ')
+		x_type = input('Introduceti tipul pentru stergere: ')
 		try:
 			x_type = int(x_type)
 			if (x_type == 1):
@@ -116,12 +152,14 @@ class UI(object):
 
 
 	def __display_clients(self):
+		"""Afiseaza clienti."""
 		items = self.__client_controller.display()
 		print("\n" + '-------=======-------')
 		for item in items:
 			print(item, end="")
 
 	def __display_books(self):
+		"""Afiseaza carti."""
 		items = self.__book_controller.display()
 		print("\n" + '-------=======-------')
 		for item in items:
@@ -140,19 +178,27 @@ class UI(object):
 					if (suboption == 1):
 						if (option == 1):
 							self._read_book()
+							#Citeste cartea pentru adaugare.
 						elif (option == 2):
-							self._read_x_categ_book('stergere')
+							self.read_categ_book_delete()
 						elif (option == 3):
-							self._read_x_categ_book()
+							self.read_categ_book_edit()
+							pass
+						elif (option == 4):
+							pass
 						elif (option == 7):
 							self.__display_books()
 					elif (suboption == 2):
 						if (option == 1):
 							self._read_client()
+							#Citeste clientul pentru adaugare.
 						elif (option == 2):
-							self._read_x_categ_client('stergere')
+							self.read_categ_client_delete()
 						elif (option == 3):
-							self._read_x_categ_client()
+							# self.read_categ_client_edit()
+							pass
+						elif (option == 4):
+							pass
 						elif (option == 7):
 							self.__display_clients()
 					suboption = self.__exit_suboption

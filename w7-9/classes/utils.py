@@ -3,6 +3,7 @@ import re
 class Utils(object):
 	@staticmethod
 	def getMaxUid(type_):
+		"""Returneaza id-ul maxim gasit in fisier."""
 		max_uid = 0
 		try:
 			repo = open("repositories/" + type_ + "_repository", "r")

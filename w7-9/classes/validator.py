@@ -3,6 +3,7 @@ import re
 class Validator(object):
 	@staticmethod
 	def validateOption(opt, min_, max_):
+		"""Valideaza optiunea sa fie un intreg care apartine [min_, max_]"""
 		try:
 			opt = int(opt)
 		except ValueError:		
@@ -26,6 +27,7 @@ class Validator(object):
 
 	@staticmethod
 	def validateTitle(title):
+		"""Valideaza titlul. Acesta sa existe."""
 		if (len(title) == 0):
 			raise ValueError('Titlu inexistent...')
 
@@ -42,6 +44,7 @@ class Validator(object):
 
 	@staticmethod
 	def validateCNP(cnp):
+		"""Valideaza CNP"""
 		reMatch = re.match("^([12][0-9]{2}(?:(?:0[1-9])|(?:1[0-2]))(?:(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))[0-9]{6})$", cnp, re.IGNORECASE)
 		if (not reMatch):
 			raise ValueError('CNP invalid...')
@@ -69,6 +72,7 @@ class Validator(object):
 
 	@staticmethod
 	def validateName(name):
+		"""Valideaza nume. De forma "Popescu Ion", "Popescu Ion Marian", "Pepescu Ion-Marian", "Popescu-Ion Marian" """
 		reMatch = re.match("^([a-z]{3,15}(?:-[a-z]{3,15})?\s[a-z]{3,15}(?:-[a-z]{3,15})?(?:\s[a-z]{3,15}(?:-[a-z]{3,15})?)?)$", name, re.IGNORECASE)
 		if (not reMatch):
 			raise ValueError('Nume invalid...')
