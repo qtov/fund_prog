@@ -42,8 +42,6 @@ class Validator(object):
 
 	@staticmethod
 	def validateCNP(cnp):
-		# if (len(cnp) != 13):
-		# 	raise ValueError('CNP invalid...')
 		reMatch = re.match("^([12][0-9]{2}(?:(?:0[1-9])|(?:1[0-2]))(?:(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))[0-9]{6})$", cnp, re.IGNORECASE)
 		if (not reMatch):
 			raise ValueError('CNP invalid...')

@@ -4,22 +4,20 @@ from classes.ui import UI
 
 class Creator(object):
 	"""docstring for Creator"""
-	def getRepository(self, type_):
-		if (type_ == 'client'):
-			return ClientRepository()
-		elif (type_ == 'book'):
-			return BookRepository()
-		else:
-			raise NameError
+	def getClientRepository(self):
+		return ClientRepository()
+
+	def getBookRepository(self):
+		return BookRepository()
 
 	def getBookController(self):
-		return BookController(self.getRepository('book'))
+		return BookController(self.getBookRepository())
 
 	def getClientController(self):
-		return ClientController(self.getRepository('client'))
+		return ClientController(self.getClientRepository())
 
 	def getController(self):
-		return Controller(self.getBookController(), self.getClientController())
+		return Controller()
 
 	def getUI(self):
-		return UI(self.getController())
+		return UI(self.getController(), self.getClientController(), self.getBookController())

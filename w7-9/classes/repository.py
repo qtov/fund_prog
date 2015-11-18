@@ -13,7 +13,7 @@ class BookRepository(object):
 		attr = [0] * 4
 		repository = open("repositories/book_repository", "r")
 		for line in repository.readlines():
-			print(line, per)
+			# print(line, per)
 			try:
 				if (per == 0):
 					item = re.match("^\w+:\s(\d+)$", line)
@@ -38,8 +38,10 @@ class BookRepository(object):
 		self.__list.append(book)
 
 	def show(self):
+		new_list = []
 		for item in self.__list:
-			print(item, end="")
+			new_list.append(item)
+		return (new_list)
 
 	def updateFile(self):
 		repository = open("repositories/book_repository", "w")
@@ -88,7 +90,7 @@ class ClientRepository(object):
 		attr = [0] * 3
 		repository = open("repositories/client_repository", "r")
 		for line in repository.readlines():
-			print(line, per)
+			# print(line, per)
 			try:
 				if (per == 0):
 					item = re.match("^\w+:\s(\d+)$", line)
@@ -107,8 +109,10 @@ class ClientRepository(object):
 		return __list
 
 	def show(self):
+		new_list = []
 		for item in self.__list:
-			print(item, end="")
+			new_list.append(item)
+		return (new_list)
 
 	def updateFile(self):
 		repository = open("repositories/client_repository", "w")
@@ -121,3 +125,33 @@ class ClientRepository(object):
 		repository.write(str(client))
 		repository.close()
 		self.__list.append(client)
+
+	def delete_id(self, uid):
+		deleted = True
+		while (deleted):
+			deleted = False
+			for item in self.__list:
+				if (item.getUid() == uid):
+					self.__list.remove(item)
+					deleted = True
+		self.updateFile()
+
+	def delete_name(self, name):
+		deleted = True
+		while (deleted):
+			deleted = False
+			for item in self.__list:
+				if (item.getName() == name):
+					self.__list.remove(item)
+					deleted = True
+		self.updateFile()
+
+	def delete_cnp(self, cnp):
+		deleted = True
+		while (deleted):
+			deleted = False
+			for item in self.__list:
+				if (item.getCNP() == cnp):
+					self.__list.remove(item)
+					deleted = True
+		self.updateFile()
