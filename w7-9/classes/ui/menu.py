@@ -1,12 +1,13 @@
 class Menu(object):
 	"""docstring for Menu"""
 
-	def __init__(self, controller, client_controller, book_controller):
+	def __init__(self, controller, client_controller, book_controller, borrow_controller):
 		self.__exit_option = 8;
 		self.__exit_suboption = 3;
 		self.__controller = controller
 		self.__client_controller = client_controller
 		self.__book_controller = book_controller
+		self.__borrow_controller = borrow_controller
 
 	def print_nice(self, alist):
 		print("\n" + '-------=======-------')
@@ -297,6 +298,20 @@ class Menu(object):
 		except ValueError as err:
 			print (err.args[0])
 
+	def borrow_return(self):
+		print('Clientul care va imprumuta/returna cartea. (ID)')
+		uid_c = self._read_client_id()
+		print('Cartea care va fi imprumutata/returnata. (ID)')
+		uid_b = self._read_book_id()
+		if (self.__book_controller.check_uid(uid_b) != -1 and
+			self.__client_controller.check_uid(uid_c) != -1):
+			try:
+				print(self.__borrow_controller.add_remove(uid_c, uid_b))
+			except ValueError as err:
+				print(err.args[0])
+		else:
+			print('Client sau carte inexistent/a.')
+
 	def read_option(self):
 		"""Citeste optiunea."""
 		option = None
@@ -314,6 +329,8 @@ class Menu(object):
 					self._read_categ(option)
 				elif (option == 4):
 					self._read_categ(option)
+				elif (option == 5):
+					self.borrow_return()
 				elif (option == 7):
 					self._read_categ(option)
 			except ValueError as err:

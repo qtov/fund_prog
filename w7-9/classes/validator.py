@@ -89,3 +89,8 @@ class Validator(object):
 			assert(0 == 1)
 		except ValueError:
 			pass
+
+	def isNumber(self, num):
+		for i in num:
+			if (i < '0' or i > '9'):
+				raise ValueError('Nu contine doar cifre.')

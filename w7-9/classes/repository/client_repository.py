@@ -139,3 +139,9 @@ class ClientRepository(object):
 			if (eval('item.get' + type_ + '()').lower() == argument.lower()):
 				new_list.append(item)
 		return new_list
+	
+	def get_obj_from_id(self, uid):
+		for item in self.__list:
+			if (item.getUid() == uid):
+				return item
+		return None
