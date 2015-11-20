@@ -1,5 +1,5 @@
-class UI(object):
-	"""docstring for UI"""
+class Menu(object):
+	"""docstring for Menu"""
 
 	def __init__(self, controller, client_controller, book_controller):
 		self.__exit_option = 8;
@@ -7,6 +7,11 @@ class UI(object):
 		self.__controller = controller
 		self.__client_controller = client_controller
 		self.__book_controller = book_controller
+
+	def print_nice(self, alist):
+		print("\n" + '-------=======-------')
+		for item in alist:
+			print(item, end='')
 
 	def show_menu(self):
 		"""Afiseaza meniul."""
@@ -26,15 +31,16 @@ class UI(object):
 		print('2. Client.')
 		print('3. Inapoi.')
 
-	def _read_book(self):
+	def read_book_add(self):
 		"""Citeste datele unei carti."""
-		title = input('Introduceti titlul: ')
-		description = input('Introduceti descrierea: ')
-		author = input('Introduceti autorul: ')
+		title = self._read_book_title()
+		description = self._read_book_description()
+		author = self._read_book_author()
 		try:
-			self.__book_controller.add(title, description, author)
+			return self.__book_controller.add(title, description, author)
 		except ValueError as err:
 			print(err.args[0])
+			return (True)
 
 	def _read_book_id(self):
 		"""Citeste id-ul pentru carte."""
@@ -71,15 +77,15 @@ class UI(object):
 		cnp = input ('CNP: ')
 		return cnp
 
-
-	def _read_client(self):
+	def read_client_add(self):
 		"""Citeste datele unui client."""
-		name = input('Introduceti numele: ')
-		cnp = input('Introduceti CNP-ul: ')
+		name = self._read_client_name()
+		cnp = self._read_client_cnp()
 		try:
-			self.__client_controller.add(name, cnp)
+			return self.__client_controller.add(name, cnp)
 		except ValueError as err:
 			print(err.args[0])
+			return True
 
 	def show_x_menu_book(self):
 		"""Afiseaza categoriile pentru lucrul cu obiectul carte."""
@@ -110,6 +116,8 @@ class UI(object):
 			elif (x_type == 3):
 				author = self._read_book_author()
 				self.__book_controller.delete_author(author)
+			elif (x_type > 4):
+				raise ValueError
 		except ValueError:
 			print('Optiune invalida.')
 
@@ -147,9 +155,28 @@ class UI(object):
 			elif (x_type == 3):
 				cnp = self._read_client_cnp()
 				self.__client_controller.delete_cnp(cnp)
+			elif (x_type > 4):
+				raise ValueError
 		except ValueError:
 			print("Optiune invalida.")
 
+	def read_categ_client_edit(self):
+		"""Citeste categoriile pentru modificarea unui client"""
+		try:
+			uid = self._read_client_id()
+			pos = self.__client_controller.check_uid(uid)
+			if (pos != -1):
+				print('Actualizare...')
+				name = self._read_client_name()
+				cnp = self._read_client_cnp()
+				try:
+					self.__client_controller.edit_uid(pos, name, cnp)
+				except ValueError as err:
+					print(err.args[0])
+			else:
+				print('Clientul nu exista.')
+		except ValueError:
+			print('Id invalid.')
 
 	def __display_clients(self):
 		"""Afiseaza clienti."""
@@ -165,6 +192,42 @@ class UI(object):
 		for item in items:
 			print(item, end="")
 
+	def read_categ_client_search(self):
+		self.show_x_menu_client()
+		opt = input('Introduceti categoria: ')
+		try:
+			self.__controller.take_x_suboption(opt)
+			opt = int(opt)
+			if (opt == 1):
+				uid = self._read_client_id()
+				self.print_nice(self.__client_controller.search(uid, 'Uid'))
+			elif (opt == 2):
+				name = self._read_client_name()
+				self.print_nice(self.__client_controller.search(name, 'Name'))
+			elif (opt == 3):
+				cnp = self._read_client_id()
+				self.print_nice(self.__client_controller.search(cnp, 'CNP'))
+		except ValueError as err:
+			print(err.args[0])
+
+	def read_categ_book_search(self):
+		self.show_x_menu_book()
+		opt = input('Introduceti categoria: ')
+		try:
+			self.__controller.take_x_suboption(opt)
+			opt = int(opt)
+			if (opt == 1):
+				uid = self._read_book_id()
+				self.print_nice(self.__book_controller.search(uid, 'Uid'))
+			elif (opt == 2):
+				title = self._read_book_title()
+				self.print_nice(self.__book_controller.search(title, 'Title'))
+			elif (opt == 3):
+				author = self._read_book_author()
+				self.print_nice(self.__book_controller.search(author, 'Author'))
+		except ValueError as err:
+			print(err.args[0])
+
 	def _read_categ(self, option):
 		"""Citeste categoria optiunii."""
 		suboption = None
@@ -177,33 +240,62 @@ class UI(object):
 					suboption = int(suboption)
 					if (suboption == 1):
 						if (option == 1):
-							self._read_book()
+							if (not self.read_book_add()):
+								print('Cartea exista deja.')
 							#Citeste cartea pentru adaugare.
 						elif (option == 2):
 							self.read_categ_book_delete()
 						elif (option == 3):
 							self.read_categ_book_edit()
-							pass
 						elif (option == 4):
-							pass
+							self.read_categ_book_search()
 						elif (option == 7):
 							self.__display_books()
 					elif (suboption == 2):
 						if (option == 1):
-							self._read_client()
+							if (not self.read_client_add()):
+								return ('Clientul exista deja.')
 							#Citeste clientul pentru adaugare.
 						elif (option == 2):
 							self.read_categ_client_delete()
 						elif (option == 3):
-							# self.read_categ_client_edit()
-							pass
+							self.read_categ_client_edit_submenu()
 						elif (option == 4):
-							pass
+							self.read_categ_client_search()
 						elif (option == 7):
 							self.__display_clients()
 					suboption = self.__exit_suboption
 			except ValueError as err:
 				print(err.args[0])
+
+	def show_menu_client_edit_submenu(self):
+		print('1. Id.')
+		print('2. CNP.')
+		print('3. Inapoi.')
+
+	def read_categ_client_edit_submenu(self):
+		self.show_menu_client_edit_submenu()
+		opt = input('Introduceti categoria: ')
+		try:
+			self.__controller.take_suboption(opt)
+			opt = int(opt)
+			pos = -1
+			if (opt == 1 or opt == 2):
+				if (opt == 1):
+					uid = self._read_client_id()
+					pos = self.__client_controller.check_uid(uid)
+				elif (opt == 2):
+					cnp = self._read_client_cnp()
+					pos = self.__client_controller.check_cnp(cnp)
+				if (pos != -1):
+					print('Actualizare...')
+					name = self._read_client_name()
+					cnp = self._read_client_cnp()
+					self.__client_controller.edit(pos, name, cnp)
+				else:
+					print('Clientul nu exista.')
+		except ValueError as err:
+			print (err.args[0])
 
 	def read_option(self):
 		"""Citeste optiunea."""

@@ -1,8 +1,7 @@
 import re
 
 class Utils(object):
-	@staticmethod
-	def getMaxUid(type_):
+	def getMaxUid(self, type_):
 		"""Returneaza id-ul maxim gasit in fisier."""
 		max_uid = 0
 		try:

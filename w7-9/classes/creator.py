@@ -1,6 +1,11 @@
-from classes.repository import BookRepository, ClientRepository
-from classes.controller import Controller, BookController, ClientController
-from classes.ui import UI
+from classes.ui.menu import Menu
+from classes.repository.book_repository import BookRepository
+from classes.repository.client_repository import ClientRepository
+from classes.controller.controller import Controller
+from classes.controller.client_controller import ClientController
+from classes.controller.book_controller import BookController
+from classes.validator import Validator
+from classes.utils import Utils
 
 class Creator(object):
 	"""docstring for Creator"""
@@ -11,13 +16,19 @@ class Creator(object):
 		return BookRepository()
 
 	def getBookController(self):
-		return BookController(self.getBookRepository())
+		return BookController(self.getBookRepository(), self.getValidator(), self.getUtils())
 
 	def getClientController(self):
-		return ClientController(self.getClientRepository())
+		return ClientController(self.getClientRepository(), self.getValidator(), self.getUtils())
 
 	def getController(self):
-		return Controller()
+		return Controller(self.getValidator())
 
-	def getUI(self):
-		return UI(self.getController(), self.getClientController(), self.getBookController())
+	def getMenu(self):
+		return Menu(self.getController(), self.getClientController(), self.getBookController())
+
+	def getValidator(self):
+		return Validator()
+
+	def getUtils(self):
+		return Utils()

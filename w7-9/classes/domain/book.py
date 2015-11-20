@@ -15,6 +15,12 @@ class Book(object):
 		str_ += "-------=======-------\n"
 		return str_
 
+	def  __eq__(self, book):
+		if (self.getTitle().lower() == book.getTitle().lower() and self.getAuthor().lower() == book.getAuthor().lower()):
+			return (True)
+		else:
+			return (False)
+
 	def getUid(self):
 		return self.__uid
 
