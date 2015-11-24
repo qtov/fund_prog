@@ -123,3 +123,10 @@ class BorrowRepository(object):
 					ordered = False
 				i += 1
 		return new_list
+
+	def getBooksByClient(self, uid):
+		count = 0
+		for item in self.__list:
+			if (item.getClient() == uid):
+				count += 1
+		return count

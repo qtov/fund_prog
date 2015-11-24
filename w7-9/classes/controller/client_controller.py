@@ -33,7 +33,7 @@ class ClientController(object):
 	def add(self, name, cnp):
 		"""Trimite un obiect Client la repository pentru a-l adauga."""
 		self.validateData(name, cnp)
-		client = Client(self.__utils.getMaxUid('client') + 1, name, cnp)
+		client = Client(self.__utils.getMaxUid('client') + 1, name, cnp, 0)
 		return self.__repository.add(client)
 
 	def display(self):
@@ -72,3 +72,9 @@ class ClientController(object):
 
 	def getListFromIdsOrderBooks(self, list_):
 		return self.__repository.getListFromIdsOrderBooks(list_)
+
+	def inc_borrow(self, uid):
+		return self.__repository.inc_borrow(uid)
+
+	def getMost20ActiveClients(self):
+		return self.__repository.getMost20ActiveClients()

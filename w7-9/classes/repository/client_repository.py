@@ -13,7 +13,7 @@ class ClientRepository(object):
 		"""
 		__list = []
 		per = 0
-		attr = [0] * 3
+		attr = [0] * 4
 		repository = open("repositories/client_repository", "r")
 		for line in repository.readlines():
 			# print(line, per)
@@ -21,11 +21,11 @@ class ClientRepository(object):
 				if (per == 0):
 					item = re.match("^\w+:\s(\d+)$", line)
 					attr[per] = item.group(1)
-				elif (per <= 2):
+				elif (per <= 3):
 					item = re.match("^\w+:\s\"(.+)\"$", line)
 					attr[per] = item.group(1)
-				if (per == 3):
-					client = Client(attr[0], attr[1], attr[2])
+				if (per == 4):
+					client = Client(attr[0], attr[1], attr[2], attr[3])
 					per = -1
 					__list.append(client)
 			except AttributeError:
@@ -181,3 +181,32 @@ class ClientRepository(object):
 		for item in list_:
 			new_list.append(self.get_obj_from_id(item['id']))
 		return new_list
+
+	def inc_borrow(self, uid):
+		for item in self.__list:
+			if (item.getUid() == uid):
+				item.incBorrow()
+
+	def getMost20ActiveClients(self):
+		percent_20 = len(self.__list) // 0.2
+		new_list = []
+		for item in self.__list:
+			new_list.append(item)
+		ordered = False
+		while (not ordered):
+			ordered = True
+			i = 0
+			while (i < len(new_list) - 1):
+				if (new_list[i].getPoints() < new_list[i + 1].getPoints()):
+					aux = new_list[i]
+					new_list[i] = new_list[i + 1]
+					new_list[i + 1] = aux
+					ordered = False
+		new_list_percent_20 = []
+		for item in new_list:
+			if (percent_20 > 0):
+				new_list_percent_20.append(item)
+				percent_20 -= 1
+			else:
+				break
+		return new_list_percent_20

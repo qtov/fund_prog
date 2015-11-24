@@ -11,10 +11,10 @@ class BorrowController(object):
 		borrow = Borrow(uid_c, uid_b)
 		if (self.__repository.exists(borrow)):
 			self.__repository.remove(borrow)
-			return ('Carte returnata.')
+			return False
 		else:
 			self.__repository.add(borrow)
-			return ('Carte imprumutata.')
+			return True
 
 	def check_if_exists_client(self, uid):
 		return self.__repository.check_if_exists_client(uid)
@@ -30,3 +30,6 @@ class BorrowController(object):
 
 	def getClientIds(self):
 		return self.__repository.getClientIds()
+
+	def getBooksByClient(self, uid):
+		return self.__repository.getBooksByClient(uid)

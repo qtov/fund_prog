@@ -337,7 +337,12 @@ class Menu(object):
 		if (self.__book_controller.check_uid(uid_b) != -1 and
 			self.__client_controller.check_uid(uid_c) != -1):
 			try:
-				print(self.__borrow_controller.add_remove(uid_c, uid_b))
+				borrowed = self.__borrow_controller.add_remove(uid_c, uid_b)
+				if (borrowed):
+					print('Carte imprumutata.')
+				else:
+					print('Carte returnata.')
+				cl_obj = self.__client_controller.inc_borrow(uid_c)
 			except ValueError as err:
 				print(err.args[0])
 		else:
@@ -388,6 +393,12 @@ class Menu(object):
 				self.most_client_report_order_books()
 		except ValueError as err:
 			print(err.args[0])
+
+	def first_20_report(self):
+		client_list = self.__client_controller.getMost20ActiveClients()
+		for client in client_list:
+			books_count = self.__borrow_controller.getBooksByClient(client.getUid())
+			print(client.getName() + '(' + str(client.getUid()) + ') -> ' + str(books_count) + ' carti imprumutate in acest moment.')
 
 	def read_reports(self):
 		self.show_reports_menu()
