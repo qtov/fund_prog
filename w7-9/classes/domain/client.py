@@ -1,28 +1,28 @@
 class Client(object):
 	"""docstring for Client"""
-	def __init__(self, uid, name, CNP, borrow):
+	def __init__(self, uid, name, CNP, points):
 		self.__uid = uid
 		self._name = name
 		self.__CNP = CNP
-		self.__borrow = borrow
+		self.__points = points
 	
 	def __str__(self):
 		str_ = '';
 		str_ += 'Id: ' + str(self.__uid) + "\n"
 		str_ += 'Nume: \"' + str(self._name) + "\"\n"
 		str_ += 'CNP: \"' + str(self.__CNP) + "\"\n"
-		str_ += 'Puncte: ' + str(self.__borrow) + "\n"
+		str_ += 'Puncte: ' + str(self.__points) + "\n"
 		str_ += "-------=======-------\n"
 		return str_
 
 	def getUid(self):
 		return self.__uid
 
-	def getBorrowed(self):
-		return self.__borrow
+	def getPoints(self):
+		return self.__points
 
 	def incBorrow(self):
-		self.__borrow += 1
+		self.__points += 1
 
 	def getName(self):
 		return self._name

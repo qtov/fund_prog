@@ -37,11 +37,17 @@ class Menu(object):
 		title = self._read_book_title()
 		description = self._read_book_description()
 		author = self._read_book_author()
+		"""
 		try:
 			return self.__book_controller.add(title, description, author)
 		except ValueError as err:
 			print(err.args[0])
 			return (True)
+		"""
+		response = self.__book_controller.add(title, description, author)
+		if (response.is_successful()):
+			response.add('success', 'Carte adaugata.')
+		response.display()
 
 	def _read_book_id(self):
 		"""Citeste id-ul pentru carte."""
@@ -82,11 +88,17 @@ class Menu(object):
 		"""Citeste datele unui client."""
 		name = self._read_client_name()
 		cnp = self._read_client_cnp()
+		"""
 		try:
 			return self.__client_controller.add(name, cnp)
 		except ValueError as err:
 			print(err.args[0])
 			return True
+		"""
+		response = self.__client_controller.add(name, cnp)
+		if (response.is_successful()):
+			response.add('success', 'Client adaugat.')
+		response.display()
 
 	def show_x_menu_book(self):
 		"""Afiseaza categoriile pentru lucrul cu obiectul carte."""
@@ -149,10 +161,8 @@ class Menu(object):
 				title = self._read_book_title()
 				description = self._read_book_description()
 				author = self._read_book_author()
-				try:
-					self.__book_controller.edit_uid(pos, title, description, author)
-				except ValueError as err:
-					print(err.args[0])
+				response = self.__book_controller.edit(pos, title, description, author)
+				response.display()
 			else:
 				print('Cartea nu exista.')
 		except ValueError:
@@ -183,32 +193,36 @@ class Menu(object):
 			elif (x_type == 3):
 				cnp = self._read_client_cnp()
 				cl_obj = self.__client_controller.get_obj_from_cnp(cnp)
-				if (self.__borrow_controller.check_if_exists_client(cl_obj.getUid())):
-					print('Clientul are carti nereturnate.')
-				else:
-					self.__client_controller.delete_cnp(cnp)
+				try:
+					if (self.__borrow_controller.check_if_exists_client(cl_obj.getUid())):
+						print('Clientul are carti nereturnate.')
+					else:
+						self.__client_controller.delete_cnp(cnp)
+				except AttributeError:
+					print('Nu exista client cu acest cnp.')
 			elif (x_type > 4):
 				raise ValueError
 		except ValueError:
 			print("Optiune invalida.")
-
+	"""
 	def read_categ_client_edit(self):
-		"""Citeste categoriile pentru modificarea unui client"""
+		print('WTF MATE!!')
 		try:
 			uid = self._read_client_id()
 			pos = self.__client_controller.check_uid(uid)
 			if (pos != -1):
-				print('Actualizare...')
+				print('Actualizare..weqwe.')
 				name = self._read_client_name()
 				cnp = self._read_client_cnp()
-				try:
-					self.__client_controller.edit_uid(pos, name, cnp)
-				except ValueError as err:
-					print(err.args[0])
+				print('roarsdddddddddddddddddd')
+				response = self.__client_controller.edit(pos, name, cnp)
+				print('lelele')
+				response.display()
 			else:
 				print('Clientul nu exista.')
 		except ValueError:
 			print('Id invalid.')
+	"""
 
 	def __display_clients(self):
 		"""Afiseaza clienti."""
@@ -272,8 +286,7 @@ class Menu(object):
 					suboption = int(suboption)
 					if (suboption == 1):
 						if (option == 1):
-							if (not self.read_book_add()):
-								print('Cartea exista deja.')
+							self.read_book_add()
 							#Citeste cartea pentru adaugare.
 						elif (option == 2):
 							self.read_categ_book_delete()
@@ -285,8 +298,7 @@ class Menu(object):
 							self.__display_books()
 					elif (suboption == 2):
 						if (option == 1):
-							if (not self.read_client_add()):
-								return ('Clientul exista deja.')
+							self.read_client_add()
 							#Citeste clientul pentru adaugare.
 						elif (option == 2):
 							self.read_categ_client_delete()
@@ -323,7 +335,8 @@ class Menu(object):
 					print('Actualizare...')
 					name = self._read_client_name()
 					cnp = self._read_client_cnp()
-					self.__client_controller.edit(pos, name, cnp)
+					response = self.__client_controller.edit(pos, name, cnp)
+					response.display()
 				else:
 					print('Clientul nu exista.')
 		except ValueError as err:
@@ -351,7 +364,7 @@ class Menu(object):
 	def show_reports_menu(self):
 		print('1. Cele mai inchiriate carti.')
 		print('2. Clienti cu carti inchiriate.')
-		print('3. Primi 20% dintre cei mai activi clienti (nume client si numarul de carti inchiriate)')
+		print('3. Primi 20% dintre cei mai activi clienti.')
 		print('4. Inapoi.')
 
 	def most_borrow_report(self):

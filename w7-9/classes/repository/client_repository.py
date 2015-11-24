@@ -21,11 +21,14 @@ class ClientRepository(object):
 				if (per == 0):
 					item = re.match("^\w+:\s(\d+)$", line)
 					attr[per] = item.group(1)
-				elif (per <= 3):
+				elif (per <= 2):
 					item = re.match("^\w+:\s\"(.+)\"$", line)
 					attr[per] = item.group(1)
+				elif (per == 3):
+					item = re.match("^\w+:\s(\d+)$", line)
+					attr[per] = item.group(1)
 				if (per == 4):
-					client = Client(attr[0], attr[1], attr[2], attr[3])
+					client = Client(attr[0], attr[1], attr[2], int(attr[3]))
 					per = -1
 					__list.append(client)
 			except AttributeError:
@@ -186,6 +189,7 @@ class ClientRepository(object):
 		for item in self.__list:
 			if (item.getUid() == uid):
 				item.incBorrow()
+		self.updateFile()
 
 	def getMost20ActiveClients(self):
 		percent_20 = len(self.__list) // 0.2
@@ -202,6 +206,7 @@ class ClientRepository(object):
 					new_list[i] = new_list[i + 1]
 					new_list[i + 1] = aux
 					ordered = False
+				i += 1
 		new_list_percent_20 = []
 		for item in new_list:
 			if (percent_20 > 0):

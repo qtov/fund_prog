@@ -1,4 +1,5 @@
 from classes.domain.client import Client
+from classes.response import Response
 
 class ClientController(object):
 	def __init__(self, repository, validator, utils):
@@ -21,20 +22,38 @@ class ClientController(object):
 		return (self.__repository.check_if_exists_cnp(cnp))
 
 	def edit(self, pos, name, cnp):
-		self.__validator.validateName(name)
-		self.__validator.validateCNP(cnp)
-		self.__repository.edit(pos, name, cnp)
-
-	def validateData(self, name, cnp):
-		"""Trimite datele la self.__validator.pentru a le valida."""
-		self.validateName(name)
-		self.validateCNP(cnp)
+		response = Response()
+		try:
+			self.__validator.validateName(name)
+		except ValueError as err:
+			response.add('error', err.args[0])
+		try:
+			self.__validator.validateCNP(cnp)
+		except ValueError as err:
+			response.add('error', err.args[0])
+		if (response.is_successful()):
+			response.add('success', 'Clientul a fost editat.')
+			self.__repository.edit(pos, name, cnp)
+		return response
 
 	def add(self, name, cnp):
 		"""Trimite un obiect Client la repository pentru a-l adauga."""
-		self.validateData(name, cnp)
-		client = Client(self.__utils.getMaxUid('client') + 1, name, cnp, 0)
-		return self.__repository.add(client)
+		response = Response()
+		try:
+			self.validateName(name)
+		except ValueError as err:
+			response.add('error', err.args[0])
+		try:
+			self.validateCNP(cnp)
+		except ValueError as err:
+			response.add('error', err.args[0])
+		if (response.is_successful()):
+			client = Client(self.__utils.getMaxUid('client') + 1, name, cnp, 0)
+			added = self.__repository.add(client)
+			if (not added):
+				response.add('error', 'Clientul exista.')
+			#return self.__repository.add(client)
+		return response
 
 	def display(self):
 		"""Afiseaza lista de obiecte de tip Client din repository."""

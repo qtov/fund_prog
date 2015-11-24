@@ -5,8 +5,8 @@ class Response(object):
 		self.resp_msg = []
 
 	def add(self, type_, message):
-		if (type_ == False):
-			self.is_successful = False
+		if (type_ == 'error'):
+			self.__success = False
 		self.resp_msg.append(message)
 
 	def display(self):
