@@ -345,20 +345,34 @@ class Menu(object):
 
 	def show_reports_menu(self):
 		print('1. Cele mai inchiriate carti.')
-		print('2. Clienti cu carti inchiriate. ordonat dupa: nume, dupa numarul de carti inchiriate')
+		print('2. Clienti cu carti inchiriate.')
 		print('3. Primi 20% dintre cei mai activi clienti (nume client si numarul de carti inchiriate)')
 		print('4. Inapoi.')
 
 	def most_borrow_report(self):
 		print("\n" + '-------=======-------')
 		how_many_books = 5
-		for item in self.__borrow_controller.getReverseList():
+		for item in self.__borrow_controller.getReverseListBooks():
 			if (how_many_books > 0):
 				bk_obj = self.__book_controller.get_obj_from_id(item['id'])
-				print(bk_obj)
+				print(bk_obj, end='')
 				how_many_books -= 1
 			else:
 				break
+
+	def most_client_report_order_name(self):
+		client_list = self.__borrow_controller.getClientIds()
+		client_list = self.__client_controller.getListFromIdsOrderName(client_list)
+		print("\n" + '-------=======-------')
+		for client in client_list:
+			print(client, end='')
+
+	def most_client_report_order_books(self):
+		client_list = self.__borrow_controller.getReverseListClients()
+		client_list = self.__client_controller.getListFromIdsOrderBooks(client_list)
+		print("\n" + '-------=======-------')
+		for client in client_list:
+			print(client, end='')
 
 	def most_client_report(self):
 		print('1. Nume.')
@@ -366,7 +380,8 @@ class Menu(object):
 		print('3. Inapoi.')
 		option = input('Ordonat dupa: ')
 		try:
-			self.__controller.take_suboption(opt)
+			self.__controller.take_suboption(option)
+			option = int(option)
 			if (option == 1):
 				self.most_client_report_order_name()
 			elif (option == 2):

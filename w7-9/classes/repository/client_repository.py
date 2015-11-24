@@ -158,3 +158,26 @@ class ClientRepository(object):
 			if (item.getCNP() == cnp):
 				return item
 		return None
+
+	def getListFromIdsOrderName(self, list_):
+		new_list = []
+		for item in list_:
+			new_list.append(self.get_obj_from_id(item))
+		ordered = False
+		while (not ordered):
+			ordered = True
+			i = 0
+			while (i < len(new_list) - 1):
+				if (new_list[i].getName() > new_list[i + 1].getName()):
+					aux = new_list[i]
+					new_list[i] = new_list[i + 1]
+					new_list[i + 1] = aux
+					ordered = False
+				i += 1
+		return new_list
+
+	def getListFromIdsOrderBooks(self, list_):
+		new_list = []
+		for item in list_:
+			new_list.append(self.get_obj_from_id(item['id']))
+		return new_list

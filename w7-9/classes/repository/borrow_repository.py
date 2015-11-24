@@ -67,7 +67,7 @@ class BorrowRepository(object):
 				return True
 		return False
 
-	def getReverseList(self):
+	def getReverseListBooks(self):
 		new_list = []
 		for item in self.__list:
 			added = False
@@ -77,6 +77,40 @@ class BorrowRepository(object):
 					added = True
 			if (not added):
 				new_list.append({'count': 1, 'id': item.getBook()})
+		ordered = False
+		while (not ordered):
+			ordered = True
+			i = 0
+			while (i < len(new_list) - 1):
+				if (new_list[i]['count'] < new_list[i + 1]['count']):
+					aux = new_list[i]
+					new_list[i] = new_list[i + 1]
+					new_list[i + 1] = aux
+					ordered = False
+				i += 1
+		return new_list
+
+	def getClientIds(self):
+		new_list = []
+		for item in self.__list:
+			found = False
+			for client in new_list:
+				if (client == item.getClient()):
+					found = True
+			if (not found):
+				new_list.append(item.getClient())
+		return new_list
+
+	def getReverseListClients(self):
+		new_list = []
+		for item in self.__list:
+			added = False
+			for client in new_list:
+				if (item.getClient() == client['id']):
+					client['count'] += 1
+					added = True
+			if (not added):
+				new_list.append({'count': 1, 'id': item.getClient()})
 		ordered = False
 		while (not ordered):
 			ordered = True

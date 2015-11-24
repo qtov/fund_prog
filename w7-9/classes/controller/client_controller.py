@@ -66,3 +66,9 @@ class ClientController(object):
 
 	def get_obj_from_cnp(self, cnp):
 		return self.__repository.get_obj_from_cnp(cnp)
+
+	def getListFromIdsOrderName(self, list_):
+		return self.__repository.getListFromIdsOrderName(list_)
+
+	def getListFromIdsOrderBooks(self, list_):
+		return self.__repository.getListFromIdsOrderBooks(list_)

@@ -22,5 +22,11 @@ class BorrowController(object):
 	def check_if_exists_book(self, uid):
 		return self.__repository.check_if_exists_book(uid)
 
-	def getReverseList(self):
-		return self.__repository.getReverseList()
+	def getReverseListBooks(self):
+		return self.__repository.getReverseListBooks()
+
+	def getReverseListClients(self):
+		return self.__repository.getReverseListClients()
+
+	def getClientIds(self):
+		return self.__repository.getClientIds()
