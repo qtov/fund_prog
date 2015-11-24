@@ -91,7 +91,7 @@ class ClientRepository(object):
 		repository = open("repositories/client_repository", "a")
 		repository.write(str(client))
 		repository.close()
-		self.__list.append(client)
+		self.__list = self.getList()
 		return True
 
 	def delete_id(self, uid):
@@ -143,5 +143,18 @@ class ClientRepository(object):
 	def get_obj_from_id(self, uid):
 		for item in self.__list:
 			if (item.getUid() == uid):
+				return item
+		return None
+
+	def get_objs_from_name(self, name):
+		new_list = []
+		for item in self.__list:
+			if (item.getName().lower() == name.lower()):
+				new_list.append(item)
+		return new_list
+
+	def get_obj_from_cnp(self, cnp):
+		for item in self.__list:
+			if (item.getCNP() == cnp):
 				return item
 		return None

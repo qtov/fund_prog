@@ -15,3 +15,12 @@ class BorrowController(object):
 		else:
 			self.__repository.add(borrow)
 			return ('Carte imprumutata.')
+
+	def check_if_exists_client(self, uid):
+		return self.__repository.check_if_exists_client(uid)
+
+	def check_if_exists_book(self, uid):
+		return self.__repository.check_if_exists_book(uid)
+
+	def getReverseList(self):
+		return self.__repository.getReverseList()

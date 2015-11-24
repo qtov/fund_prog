@@ -43,3 +43,13 @@ class BookController(object):
 			return ('Nu s-a gasit nici o carte.' + "\n" + '-------=======-------' + "\n")
 		else:
 			return self.__repository.search(argument, type_)
+
+	def get_obj_from_id(self, uid):
+		return self.__repository.get_obj_from_id(uid)
+
+	def get_objs_from_title(self, title):
+		return self.__repository.get_objs_from_title(title)
+
+	def get_objs_from_author(self, author):
+		return self.__repository.get_objs_from_author(author)
+

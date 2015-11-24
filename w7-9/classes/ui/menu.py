@@ -110,13 +110,30 @@ class Menu(object):
 			x_type = int(x_type)
 			if (x_type == 1):
 				uid = self._read_book_id()
-				self.__book_controller.delete_id(uid)
+				if (self.__borrow_controller.check_if_exists_book(uid)):
+					print('Cartea este imprumutata.')
+				else:
+					self.__book_controller.delete_id(uid)
 			elif (x_type == 2):
 				title = self._read_book_title()
-				self.__book_controller.delete_title(title)
+				to_delete = True
+				bk_obj = self.__book_controller.get_objs_from_title(title)
+				for item in bk_obj:
+					if (self.__borrow_controller.check_if_exists_book(item.getUid())):
+						print('Cartea ' + str(item.getUid()) + ' este imprumutata.')
+						to_delete = False
+				if (to_delete):
+					self.__book_controller.delete_title(title)
 			elif (x_type == 3):
 				author = self._read_book_author()
-				self.__book_controller.delete_author(author)
+				to_delete = True
+				bk_obj = self.__book_controller.get_objs_from_author(author)
+				for item in bk_obj:
+					if (self.__borrow_controller.check_if_exists_book(item.getUid())):
+						print('Cartea ' + str(item.getUid()) + ' este imprumutata.')
+						to_delete = False
+				if (to_delete):
+					self.__book_controller.delete_author(author)
 			elif (x_type > 4):
 				raise ValueError
 		except ValueError:
@@ -149,13 +166,27 @@ class Menu(object):
 			x_type = int(x_type)
 			if (x_type == 1):
 				uid = self._read_client_id()
-				self.__client_controller.delete_id(uid)
+				if (self.__borrow_controller.check_if_exists_client(uid)):
+					print('Clientul are carti nereturnate.')
+				else:
+					self.__client_controller.delete_id(uid)
 			elif (x_type == 2):
+				to_delete = True
 				name = self._read_client_name()
-				self.__client_controller.delete_name(name)
+				cl_obj = self.__client_controller.get_objs_from_name(name)
+				for item in cl_obj:
+					if (self.__borrow_controller.check_if_exists_client(item.getUid())):
+						print('Clientul ' + str(item.getUid()) + ' are carti nereturnate.')
+						to_delete = False
+				if (to_delete):
+					self.__client_controller.delete_name(name)
 			elif (x_type == 3):
 				cnp = self._read_client_cnp()
-				self.__client_controller.delete_cnp(cnp)
+				cl_obj = self.__client_controller.get_obj_from_cnp(cnp)
+				if (self.__borrow_controller.check_if_exists_client(cl_obj.getUid())):
+					print('Clientul are carti nereturnate.')
+				else:
+					self.__client_controller.delete_cnp(cnp)
 			elif (x_type > 4):
 				raise ValueError
 		except ValueError:
@@ -312,6 +343,52 @@ class Menu(object):
 		else:
 			print('Client sau carte inexistent/a.')
 
+	def show_reports_menu(self):
+		print('1. Cele mai inchiriate carti.')
+		print('2. Clienti cu carti inchiriate. ordonat dupa: nume, dupa numarul de carti inchiriate')
+		print('3. Primi 20% dintre cei mai activi clienti (nume client si numarul de carti inchiriate)')
+		print('4. Inapoi.')
+
+	def most_borrow_report(self):
+		print("\n" + '-------=======-------')
+		how_many_books = 5
+		for item in self.__borrow_controller.getReverseList():
+			if (how_many_books > 0):
+				bk_obj = self.__book_controller.get_obj_from_id(item['id'])
+				print(bk_obj)
+				how_many_books -= 1
+			else:
+				break
+
+	def most_client_report(self):
+		print('1. Nume.')
+		print('2. Numarul de carti inchiriate.')
+		print('3. Inapoi.')
+		option = input('Ordonat dupa: ')
+		try:
+			self.__controller.take_suboption(opt)
+			if (option == 1):
+				self.most_client_report_order_name()
+			elif (option == 2):
+				self.most_client_report_order_books()
+		except ValueError as err:
+			print(err.args[0])
+
+	def read_reports(self):
+		self.show_reports_menu()
+		option = input('Introduceti optinea: ')
+		try:
+			self.__controller.take_x_suboption(option)
+			option = int(option)
+			if (option == 1):
+				self.most_borrow_report()
+			elif (option == 2):
+				self.most_client_report()
+			elif (option == 3):
+				self.first_20_report()
+		except ValueError as err:
+			print(err.args[0])
+
 	def read_option(self):
 		"""Citeste optiunea."""
 		option = None
@@ -331,6 +408,8 @@ class Menu(object):
 					self._read_categ(option)
 				elif (option == 5):
 					self.borrow_return()
+				elif (option == 6):
+					self.read_reports()
 				elif (option == 7):
 					self._read_categ(option)
 			except ValueError as err:

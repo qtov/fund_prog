@@ -46,7 +46,7 @@ class BorrowRepository(object):
 		"""Actualizeaza fisierul."""
 		repository = open("repositories/borrow_repository", "w")
 		for item in self.__list:
-			repository.write(item)
+			repository.write(str(item))
 		repository.close()
 
 	def exists(self, borrow):
@@ -54,3 +54,38 @@ class BorrowRepository(object):
 			if (item == borrow):
 				return True
 		return False
+
+	def check_if_exists_client(self, uid):
+		for item in self.__list:
+			if (item.getClient() == uid):
+				return True
+		return False
+
+	def check_if_exists_book(self, uid):
+		for item in self.__list:
+			if (item.getBook() == uid):
+				return True
+		return False
+
+	def getReverseList(self):
+		new_list = []
+		for item in self.__list:
+			added = False
+			for book in new_list:
+				if (item.getBook() == book['id']):
+					book['count'] += 1
+					added = True
+			if (not added):
+				new_list.append({'count': 1, 'id': item.getBook()})
+		ordered = False
+		while (not ordered):
+			ordered = True
+			i = 0
+			while (i < len(new_list) - 1):
+				if (new_list[i]['count'] < new_list[i + 1]['count']):
+					aux = new_list[i]
+					new_list[i] = new_list[i + 1]
+					new_list[i + 1] = aux
+					ordered = False
+				i += 1
+		return new_list

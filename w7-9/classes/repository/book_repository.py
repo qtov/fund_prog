@@ -41,7 +41,8 @@ class BookRepository(object):
 		repository = open("repositories/book_repository", "a")
 		repository.write(str(book))
 		repository.close()
-		self.__list.append(book)
+		#self.__list.append(book)
+		self.__list = self.getList()
 		return True
 
 	def show(self):
@@ -128,3 +129,17 @@ class BookRepository(object):
 			if (item.getUid() == uid):
 				return item
 		return None
+
+	def get_objs_from_title(self, title):
+		new_list = []
+		for item in self.__list:
+			if (item.getTitle().lower() == title.lower()):
+				new_list.append(item)
+		return new_list
+
+	def get_objs_from_author(self, author):
+		new_list = []
+		for item in self.__list:
+			if (item.getAuthor().lower() == author.lower()):
+				new_list.append(item)
+		return new_list
