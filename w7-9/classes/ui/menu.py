@@ -239,6 +239,7 @@ class Menu(object):
 			print(item, end="")
 
 	def read_categ_client_search(self):
+		"""Citeste categoriile pentru cautare."""
 		self.show_x_menu_client()
 		opt = input('Introduceti categoria: ')
 		try:
@@ -257,6 +258,7 @@ class Menu(object):
 			print(err.args[0])
 
 	def read_categ_book_search(self):
+		"""Citeste categoriile pentru cautare."""
 		self.show_x_menu_book()
 		opt = input('Introduceti categoria: ')
 		try:
@@ -318,6 +320,7 @@ class Menu(object):
 		print('3. Inapoi.')
 
 	def read_categ_client_edit_submenu(self):
+		"""Citeste categoriile pentru editare."""
 		self.show_menu_client_edit_submenu()
 		opt = input('Introduceti categoria: ')
 		try:
@@ -343,6 +346,7 @@ class Menu(object):
 			print (err.args[0])
 
 	def borrow_return(self):
+		"""Imprumuta/returneaza cartea."""
 		print('Clientul care va imprumuta/returna cartea. (ID)')
 		uid_c = self._read_client_id()
 		print('Cartea care va fi imprumutata/returnata. (ID)')
@@ -368,6 +372,7 @@ class Menu(object):
 		print('4. Inapoi.')
 
 	def most_borrow_report(self):
+		"""Afiseaza clientul cu cele mai multe carti imprumutate."""
 		print("\n" + '-------=======-------')
 		how_many_books = 5
 		for item in self.__borrow_controller.getReverseListBooks():
@@ -379,6 +384,7 @@ class Menu(object):
 				break
 
 	def most_client_report_order_name(self):
+		"""Afiseaza clientii cu carti inchiriate ordonati dupa nume."""
 		client_list = self.__borrow_controller.getClientIds()
 		client_list = self.__client_controller.getListFromIdsOrderName(client_list)
 		print("\n" + '-------=======-------')
@@ -386,6 +392,7 @@ class Menu(object):
 			print(client, end='')
 
 	def most_client_report_order_books(self):
+		"""Afiseaza clientii cu carti inchiriate ordonati dupa nr. de carti imprumutate."""
 		client_list = self.__borrow_controller.getReverseListClients()
 		client_list = self.__client_controller.getListFromIdsOrderBooks(client_list)
 		print("\n" + '-------=======-------')
@@ -393,6 +400,7 @@ class Menu(object):
 			print(client, end='')
 
 	def most_client_report(self):
+		"""Afiseaza subcategoriile pentru ordonarea raportului 2."""
 		print('1. Nume.')
 		print('2. Numarul de carti inchiriate.')
 		print('3. Inapoi.')
@@ -408,6 +416,7 @@ class Menu(object):
 			print(err.args[0])
 
 	def first_20_report(self):
+		"""Afiseaza primii 20% cei mai activi clienti."""
 		client_list = self.__client_controller.getMost20ActiveClients()
 		for client in client_list:
 			books_count = self.__borrow_controller.getBooksByClient(client.getUid())

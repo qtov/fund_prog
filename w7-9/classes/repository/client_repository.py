@@ -137,6 +137,7 @@ class ClientRepository(object):
 		self.updateFile()
 
 	def search(self, argument, type_):
+		"""Cauta un dupa argument si tip."""
 		new_list = []
 		for item in self.__list:
 			if (eval('item.get' + type_ + '()').lower() == argument.lower()):
@@ -163,6 +164,7 @@ class ClientRepository(object):
 		return None
 
 	def getListFromIdsOrderName(self, list_):
+		"""Returneaza lista ordonata dupa nume."""
 		new_list = []
 		for item in list_:
 			new_list.append(self.get_obj_from_id(item))
@@ -180,22 +182,25 @@ class ClientRepository(object):
 		return new_list
 
 	def getListFromIdsOrderBooks(self, list_):
+		"""Modifica lista cu id-urile corespunzatoare intr-o lista de clienti dupa care o returneaza"""
 		new_list = []
 		for item in list_:
 			new_list.append(self.get_obj_from_id(item['id']))
 		return new_list
 
 	def inc_borrow(self, uid):
+		"""Incrementeaza punctele utilizatorului."""
 		for item in self.__list:
 			if (item.getUid() == uid):
 				item.incBorrow()
 		self.updateFile()
 
 	def getMost20ActiveClients(self):
-		percent_20 = len(self.__list) // 0.2
+		"""Returneaza lista celor mai activi 20% clienti."""
 		new_list = []
 		for item in self.__list:
 			new_list.append(item)
+		percent_20 = len(new_list) * 0.2
 		ordered = False
 		while (not ordered):
 			ordered = True

@@ -118,6 +118,7 @@ class BookRepository(object):
 		self.updateFile()
 
 	def search(self, argument, type_):
+		"""Cauta un dupa argument si tip."""
 		new_list = []
 		for item in self.__list:
 			if (eval('item.get' + type_ + '()').lower() == argument.lower()):
