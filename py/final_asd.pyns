@@ -1,0 +1,35 @@
+# PynSource Version 1.1
+{'type':'meta', 'info1':'Lorem ipsum dolor sit amet, consectetur adipiscing elit is latin.'}
+{'type':'umlshape', 'id':'Creator', 'x':909, 'y':635, 'width':162, 'height':211, 'attrs':'', 'meths':'getClientRepository|getBookRepository|getBookController|getClientController|getController|getBorrowRepository|getBorrowController|getMenu|getValidator|getUtils'}
+{'type':'umlshape', 'id':'BookController', 'x':905, 'y':995, 'width':170, 'height':301, 'attrs':'__repository|__validator|__utils', 'meths':'__init__|add|delete_id|delete_title|delete_author|check_uid|edit|display|search|get_obj_from_id|get_objs_from_title|get_objs_from_author'}
+{'type':'umlshape', 'id':'BorrowController', 'x':397, 'y':1075, 'width':186, 'height':221, 'attrs':'__repository|__validator', 'meths':'__init__|add_remove|check_if_exists_client|check_if_exists_book|getReverseListBooks|getReverseListClients|getClientIds|getBooksByClient'}
+{'type':'umlshape', 'id':'ClientController', 'x':54, 'y':999, 'width':202, 'height':413, 'attrs':'__repository|__validator|__utils', 'meths':'__init__|validateName|validateCNP|check_uid|check_cnp|edit|add|display|delete_id|delete_name|delete_cnp|search|get_obj_from_id|get_objs_from_name|get_obj_from_cnp|getListFromIdsOrderName|getListFromIdsOrderBooks|inc_borrow|getMost20ActiveClients'}
+{'type':'umlshape', 'id':'Controller', 'x':711, 'y':1110, 'width':138, 'height':141, 'attrs':'__validator', 'meths':'__init__|take_option|take_suboption|take_x_suboption'}
+{'type':'umlshape', 'id':'Book', 'x':939, 'y':1788, 'width':122, 'height':285, 'attrs':'__uid|_title|_description|_author', 'meths':'__init__|__str__|__eq__|getUid|getTitle|setTitle|getDescription|setDescription|getAuthor|setAuthor'}
+{'type':'umlshape', 'id':'Borrow', 'x':449, 'y':1904, 'width':82, 'height':173, 'attrs':'__client|__book', 'meths':'__init__|getClient|getBook|__str__|__eq__'}
+{'type':'umlshape', 'id':'Client', 'x':114, 'y':1913, 'width':82, 'height':285, 'attrs':'__uid|_name|__CNP|__points', 'meths':'__init__|__str__|getUid|getPoints|incBorrow|getName|setName|getCNP|setCNP|__eq__'}
+{'type':'umlshape', 'id':'BookRepository', 'x':895, 'y':1422, 'width':170, 'height':317, 'attrs':'__list', 'meths':'__init__|getList|add|show|updateFile|delete_id|delete_title|delete_author|check_if_exists|check_if_exists_full|edit|search|get_obj_from_id|get_objs_from_title|get_objs_from_author'}
+{'type':'umlshape', 'id':'BorrowRepository', 'x':412, 'y':1458, 'width':186, 'height':285, 'attrs':'__list', 'meths':'__init__|add|remove|getList|show|updateFile|exists|check_if_exists_client|check_if_exists_book|getReverseListBooks|getClientIds|getReverseListClients|getBooksByClient'}
+{'type':'umlshape', 'id':'ClientRepository', 'x':54, 'y':1467, 'width':202, 'height':397, 'attrs':'__list', 'meths':'__init__|getList|check_if_exists_full|check_if_exists|check_if_exists_cnp|show|updateFile|add|delete_id|delete_name|delete_cnp|edit|search|get_obj_from_id|get_objs_from_name|get_obj_from_cnp|getListFromIdsOrderName|getListFromIdsOrderBooks|inc_borrow|getMost20ActiveClients'}
+{'type':'umlshape', 'id':'Response', 'x':713, 'y':1309, 'width':114, 'height':173, 'attrs':'__success|resp_msg', 'meths':'__init__|add|display|is_successful|clear'}
+{'type':'umlshape', 'id':'Utils', 'x':619, 'y':902, 'width':82, 'height':67, 'attrs':'', 'meths':'getMaxUid'}
+{'type':'umlshape', 'id':'Validator', 'x':38, 'y':763, 'width':154, 'height':195, 'attrs':'', 'meths':'validateOption|testValidateOption|validateTitle|testValidateTitle|validateCNP|testValidateCNP|validateName|testValidateName|isNumber'}
+{'type':'umlshape', 'id':'Menu', 'x':245, 'y':-6, 'width':610, 'height':813, 'attrs':'__exit_option|__exit_suboption|__controller|__client_controller|__book_controller|__borrow_controller', 'meths':'__exit_option|__exit_suboption|__controller|__client_controller|__book_controller|__borrow_controller|__init__(controller, client_controller, book_controller, borrow_controller)|print_nice(alist)|show_menu()|show_categ_menu()|read_book_add()|_read_book_id()|_read_book_title()|_read_book_description()|_read_book_author()|_read_client_id()|_read_client_name()|_read_client_cnp()|read_client_add()|show_x_menu_book()|show_x_menu_client()|read_categ_book_delete()|read_categ_book_edit()|read_categ_client_delete()|read_categ_client_edit()|__display_clients()|__display_books()|read_categ_client_search()|read_categ_book_search()|_read_categ(option)|show_menu_client_edit_submenu()|read_categ_client_edit_submenu()|borrow_return()|show_reports_menu()|most_borrow_report()|most_client_report_order_name()|most_client_report_order_books()|most_client_report()|first_20_report()|read_reports()|read_option()'}
+{'type':'edge', 'id':'ClientController_to_Menu', 'source':'ClientController', 'target':'Menu', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BorrowController_to_Menu', 'source':'BorrowController', 'target':'Menu', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'Controller_to_Menu', 'source':'Controller', 'target':'Menu', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BookController_to_Menu', 'source':'BookController', 'target':'Menu', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'ClientRepository_to_ClientController', 'source':'ClientRepository', 'target':'ClientController', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'Client_to_ClientRepository', 'source':'Client', 'target':'ClientRepository', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BorrowRepository_to_BorrowController', 'source':'BorrowRepository', 'target':'BorrowController', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'Borrow_to_BorrowRepository', 'source':'Borrow', 'target':'BorrowRepository', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BookRepository_to_BookController', 'source':'BookRepository', 'target':'BookController', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'Book_to_BookRepository', 'source':'Book', 'target':'BookRepository', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'ClientController_to_Validator', 'source':'ClientController', 'target':'Validator', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BookController_to_Validator', 'source':'BookController', 'target':'Validator', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BorrowController_to_Validator', 'source':'BorrowController', 'target':'Validator', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'ClientController_to_Utils', 'source':'ClientController', 'target':'Utils', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BookController_to_Utils', 'source':'BookController', 'target':'Utils', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'Controller_to_Validator', 'source':'Controller', 'target':'Validator', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'ClientController_to_Response', 'source':'ClientController', 'target':'Response', 'uml_edge_type':'composition'}
+{'type':'edge', 'id':'BookController_to_Response', 'source':'BookController', 'target':'Response', 'uml_edge_type':'composition'}
