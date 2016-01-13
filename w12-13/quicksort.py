@@ -1,3 +1,7 @@
+# Worst case performance	O(n^2)
+# Best case performance		O(n * log (n))
+# Average case performance	O(n * log(n))
+
 unsorted_list = [5, 6, 7, 2, 3, 4, 1, 0, 23, 41, 21, 6, 5, 4, 2, 3, 3, 4, 1]
 
 def quicksort(lst, lo, hi):
